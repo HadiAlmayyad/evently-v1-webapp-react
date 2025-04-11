@@ -1,9 +1,6 @@
-// src/pages/MyEvents/MyEventsPage.jsx
 import React from 'react';
 import './MyEventsPage.css';
-import { Container, Navbar, Nav } from 'react-bootstrap'
-import EventCard from '../../components/EventCard';
-import FloatingAddButton from '../../components/FloatingAddButton';
+
 
 const dummyEvents = [
   {
@@ -26,17 +23,23 @@ const dummyEvents = [
 
 export default function MyEventsPage() {
   return (
-<div className="container">
+  <div className='my-events-page'>
+    <div className="container">
+        
+        <button className='btn btn-primary'>
+          Button
+        </button>
+        {/* // Navbar */}
+        
+        {/* Button for Events Selection All, Upcoming, Past */}
 
-     {/* // Navbar */}
-     
-     {/* Button for Events Selection All, Upcoming, Past */}
+        {/* Events Cards */}
 
-     {/* Events Cards */}
-
-     {/* Button / Card for Adding a new one */}
+        {/* Button / Card for Adding a new one */}
 
 
-    </div>
+        </div>
+  </div>
+  
   );
 }
