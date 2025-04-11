@@ -1,10 +1,14 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MyEventsPage from "./pages/MyEvents/MyEventsPage";
 
 function App() {
   return (
-   <div className="App">
-    <h1>Evently begun its life .. </h1>
-   </div>
+   <Router>
+    <Routes>
+      <Route path="/" element={<MyEventsPage />} />
+    </Routes>
+   </Router>
   );
 }
 
