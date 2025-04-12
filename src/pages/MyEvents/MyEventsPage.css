@@ -1,8 +1,126 @@
+:root {
+  /* Branding & UI */
+  --ev-logo: #5120E3; /* Ev-Logo */
+  --ev-button: #6F41D2;
+
+  /* Background layers */
+  --ev-background: #150733;            /* Ev-Background */
+  --ev-background-lighter: #160830;    /* Ev-Background-Lighter */
+  --ev-background-darker: #080411;     /* Ev-Background-Darker */
+
+  /* Foreground layers */
+  --ev-on-background: #261D41;         /* Ev-OnBackground */
+  --ev-on-background-lighter: #543D8E; /* Ev-OnBackground-Lighter */
+
+  /* Form & Inputs */
+  --ev-unfocused-element: #7D7585;     /* Ev-UnfocusedElement */
+
+  /* Texts & States */
+  --ev-text: #CFCBD8;                 /* Ev-Text */
+  --ev-enabled: #5120E3;              /* Ev-Enabled */
+}
+
 .my-events-page {
-    background-color: #150733;
-    min-height: 100px;
-  }
-  
-  .text-purple {
-    color: #7F5AF0;
-  }
+  background-color: var(--ev-background);
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+.custom-toggle {
+  border: 2px solid var(--ev-button) !important;
+  color: var(--ev-button) !important;
+  background-color: var(--ev-text) !important;
+  transition: all 0.2s ease-in-out;
+}
+
+/* When toggled */
+.custom-toggle.active {
+  background-color: var(--ev-enabled) !important;
+  color: var(--ev-text) !important;
+  border-color: var(--ev-enabled) !important;
+}
+
+/* Fix hover and focus */
+.custom-toggle:hover,
+.custom-toggle:focus {
+  background-color: var(--ev-enabled) !important;
+  color: #E8E7EA !important;
+  border-color: var(--ev-enabled) !important;
+}
+
+/* Hover on toggled button */
+.custom-toggle.active:hover,
+.custom-toggle.active:focus {
+  background-color: var(--ev-enabled) !important;
+  color: #E8E7EA !important;
+  border-color: var(--ev-enabled) !important;
+}
+
+.btn-app { 
+  background-color: var(--ev-enabled);
+  color: #E8E7EA;
+  border: var(--ev-enabled);
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+.btn-app:hover { 
+  background-color: #5a28f1;
+  color: #E8E7EA;
+  border: solid #5a28f1;
+  font-weight: bold;
+}
+
+.btn-app:disabled { 
+  background-color: var(--ev-enabled);
+  color: #E8E7EA;
+  border: var(--ev-enabled);
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+.Ev-OnBackground {
+  background-color: var(--ev-on-background);
+  color: var(--ev-text);
+}
+
+
+.custom-modal .modal-content {
+border-radius: 12px;
+overflow: hidden;
+border-radius: 1rem;
+border: none;
+}
+
+/* Header */
+.custom-modal .modal-header {
+  background-color: #543D8E;      /* Dark purple */
+  border-bottom: none;
+}
+
+.custom-modal .modal-title {
+  color: #E8E7EA;                 /* Light purple for title */
+  font-weight: bold;
+}
+
+/* Body */
+.custom-modal .modal-body {
+  background-color: #261D41;      /* Slightly darker purple */
+  color: #E8E7EA;                 /* Light gray text */
+}
+
+/* Form elements inside modal */
+.custom-modal .form-label {
+  color: #E8E7EA;
+}
+
+.custom-modal .form-control {
+  background-color: #150733;
+  color: #ffffff;
+  border: 1px solid #150733;
+}
+
+.custom-modal .form-control::placeholder {
+  color: #70787A;
+}
+

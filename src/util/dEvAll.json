@@ -1,0 +1,93 @@
+[
+    {
+      "id": 1,
+      "title": "Tech Summit 2025",
+      "datetime": "Mon, Apr 14 · 9:00 AM",
+      "description": "Annual gathering of tech enthusiasts and innovators.",
+      "venue": "Auditorium A",
+      "organiser": "KFUPM Tech Club",
+      "type": "past"
+    },
+    {
+      "id": 2,
+      "title": "AI & ML Workshop",
+      "datetime": "Tue, Apr 15 · 1:30 PM",
+      "description": "",
+      "venue": "Lab 3",
+      "organiser": "AI Society",
+      "type": "past"
+    },
+    {
+      "id": 3,
+      "title": "Startup Pitch Night",
+      "datetime": "Wed, Apr 16 · 6:00 PM",
+      "description": "Pitch your idea in front of investors.",
+      "venue": "Innovation Hub",
+      "organiser": "Entrepreneurship Club",
+      "type": "past"
+    },
+    {
+      "id": 4,
+      "title": "Math Olympiad",
+      "datetime": "Thu, Apr 17 · 10:00 AM",
+      "description": "Problem-solving contest for advanced math students.",
+      "venue": "Main Hall",
+      "organiser": "Math Society",
+      "type": "past"
+    },
+    {
+      "id": 5,
+      "title": "Sustainability Expo",
+      "datetime": "Fri, Apr 18 · 4:00 PM",
+      "description": "Showcasing green ideas and environmental projects.",
+      "venue": "Expo Center",
+      "organiser": "Green Earth",
+      "type": "upcoming"
+    },
+    {
+      "id": 6,
+      "title": "Hackathon 2025",
+      "datetime": "Sat, Apr 19 · 10:00 AM",
+      "description": "Join us for a 24-hour coding challenge!",
+      "venue": "Building 22",
+      "organiser": "Coding Club",
+      "type": "upcoming"
+    },
+    {
+      "id": 7,
+      "title": "Career Fair",
+      "datetime": "Mon, Apr 22 · 1:00 PM",
+      "description": "Meet top employers and explore opportunities.",
+      "venue": "Main Hall",
+      "organiser": "Career Center",
+      "type": "upcoming"
+    },
+    {
+      "id": 8,
+      "title": "Cultural Night",
+      "datetime": "Tue, Apr 23 · 7:00 PM",
+      "description": "",
+      "venue": "Outdoor Stage",
+      "organiser": "Student Council",
+      "type": "upcoming"
+    },
+    {
+      "id": 9,
+      "title": "Crypto Talk",
+      "datetime": "Wed, Apr 24 · 5:00 PM",
+      "description": "Learn the fundamentals of blockchain tech.",
+      "venue": "Lecture Hall 8",
+      "organiser": "Finance Club",
+      "type": "upcoming"
+    },
+    {
+      "id": 10,
+      "title": "Photography Exhibition",
+      "datetime": "Thu, Apr 25 · 11:00 AM",
+      "description": "Showcase of stunning student photography.",
+      "venue": "Gallery Room",
+      "organiser": "Media Club",
+      "type": "upcoming"
+    }
+  ]
+  
