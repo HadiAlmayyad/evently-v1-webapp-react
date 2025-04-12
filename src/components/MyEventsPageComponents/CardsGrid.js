@@ -20,14 +20,14 @@ function CardsGrid({filteredEvents, handleDelete}) {
 
     return (
 
-        <Row sm={1} md={2} lg={3} className='mt-2 g-2'>
+        <Row sm={1} md={2} lg={3} className='mt-2 g-3'>
 
             {filteredEvents.map((event) => (
             
                 <Col sm={12} md={6} lg={4} key={event.id}>
                     
                     {/* Card Event */}
-                    <Card className='h-100 shadow Ev-OnBackground'>
+                    <Card className='h-100 shadow Ev-OnBackground rounded-4'>
                     <Card.Body>
                         <Card.Title>{event.title}</Card.Title>
                         
