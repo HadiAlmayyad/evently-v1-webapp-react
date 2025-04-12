@@ -5,9 +5,9 @@ import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { Button, Modal, Form } from 'react-bootstrap';
 
-import FilterButtons from '../../components/FliterButtons';
-import NavbarComponent from '../../components/NavbarComponent';
-import CardsGrid from '../../components/CardsGrid';
+import FilterButtons from '../../components/MyEventsPageComponents/FliterButtons';
+import NavbarComponent from '../../components/MyEventsPageComponents/NavbarComponent';
+import CardsGrid from '../../components/MyEventsPageComponents/CardsGrid';
 
 import allEv from '../../util/dEvAll.json';
 
@@ -16,16 +16,6 @@ export default function MyEventsPage() {
 
   const [events, setEvents] = useState(allEv); // Stores events displayed 
   const [filter, setFilter] = useState('all'); // Stroes the type of events displayed 
-  const [lgShow, setLgShow] = useState(false); // Stroes the state of Moda (Rate Form)
-  // Related the form and its ranges
-  const [ranges, setRanges] = useState({
-    Location: 5,
-    Date: 5,
-    Time: 5,
-    Food: 5,
-    Overall: 5,
-  });
-
 
   // Handles Toggle Buttons (All, Upcoming, Past)
   const handleChange = (val) => {
@@ -41,16 +31,6 @@ export default function MyEventsPage() {
 
   const filteredEvents = filter === 'all' ? events : events.filter((e) => e.type === filter);
 
-  const handleRateForm = (id) => {
-    setLgShow(true)
-  }
-
-  const handleRangeChange = (key) => (e) => {
-    setRanges((prev) => ({
-      ...prev,
-      [key]: Number(e.target.value),
-    }));
-  };
 
   return (
   <div className='my-events-page'>
@@ -68,65 +48,13 @@ export default function MyEventsPage() {
           </div>
 
     {/* Events Cards */}
+    {/* The Grid contains RateForm Comp.*/}
         <CardsGrid 
         filteredEvents={filteredEvents} 
         handleDelete={handleDelete} 
-        handleRate={handleRateForm} />
+        />
 
     </Container>
-    
-
-    <Modal
-        size="lg"
-        show={lgShow}
-        onHide={() => setLgShow(false)} // Close Modal
-        aria-labelledby="example-modal-sizes-title-lg"
-        className='custom-modal' 
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-lg">
-            You Opinion - 
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-
-          <Form> 
-            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-              <Form.Label>What did you like about the event?</Form.Label>
-              <Form.Control as="textarea" placeholder="Share your thoughts, so KFUPM becomes greater !" rows={2} />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-              <Form.Label>What things can be improved?</Form.Label>
-              <Form.Control as="textarea" placeholder="Share your thoughts, so KFUPM becomes greater !" rows={3} /> 
-            </Form.Group>
-
-            {Object.entries(ranges).map(([key, value]) => (
-              <Form.Group key={key} className="mb-3">
-                <Form.Label>
-                  {key.charAt(0).toUpperCase() + key.slice(1)} {value} / 10
-                </Form.Label>
-                <Form.Range
-                  min={0}
-                  max={10}
-                  step={1}
-                  value={value}
-                  onChange={handleRangeChange(key)}
-                />
-              </Form.Group>
-            ))}
-
-            {/* Done Button */}
-            <div className="d-grid gap-2">
-              <Button className='btn-app' size="lg">
-                Done
-              </Button>
-            </div>
-          </Form>
-        
-        </Modal.Body>
-    </Modal>
-
 
   </div>
   
