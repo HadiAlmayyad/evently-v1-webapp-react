@@ -20,3 +20,6 @@ Kenan:
 Moath:
 9) Admin Dashboard (Kenan currently working on this)
 10) Venue Management
+
+Notes: 
+- We need to add notifications feature on the navbar, [A bttuon -> when clicked > Opens a Toast]
