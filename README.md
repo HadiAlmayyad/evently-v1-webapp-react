@@ -14,8 +14,8 @@ Hadi:
 6) Organizer Dashboard
 
 Kenan:  
-7) My Events 
-8) Feedback Form
+7) My Events (Dpne)
+8) Feedback Form (Done)
 
 Moath:  
 9) Admin Dashboard 
