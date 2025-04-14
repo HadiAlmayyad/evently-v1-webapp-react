@@ -3,10 +3,12 @@
       "id": 1,
       "title": "Tech Summit 2025",
       "datetime": "Mon, Apr 14 · 9:00 AM",
-      "description": "Annual gathering of tech enthusiasts and innovators.",
+      "description": "Annual gathering of tech enthusiasts and innovators. Annual gathering of tech enthusiasts and innovators. Annual gathering of tech enthusiasts and innovators.",
       "venue": "Auditorium A",
       "organiser": "KFUPM Tech Club",
-      "type": "past"
+      "type": "past",
+      "adminStatus": "approved",
+      "adminComment": ""
     },
     {
       "id": 2,
@@ -15,7 +17,9 @@
       "description": "",
       "venue": "Lab 3",
       "organiser": "AI Society",
-      "type": "past"
+      "type": "past",
+      "adminStatus": "approved",
+      "adminComment": ""
     },
     {
       "id": 3,
@@ -24,7 +28,9 @@
       "description": "Pitch your idea in front of investors.",
       "venue": "Innovation Hub",
       "organiser": "Entrepreneurship Club",
-      "type": "past"
+      "type": "past",
+      "adminStatus": "rejected",
+      "adminComment": "Comment"
     },
     {
       "id": 4,
@@ -33,7 +39,9 @@
       "description": "Problem-solving contest for advanced math students.",
       "venue": "Main Hall",
       "organiser": "Math Society",
-      "type": "past"
+      "type": "past",
+      "adminStatus": "rejected",
+      "adminComment": "Comment"
     },
     {
       "id": 5,
@@ -42,7 +50,9 @@
       "description": "Showcasing green ideas and environmental projects.",
       "venue": "Expo Center",
       "organiser": "Green Earth",
-      "type": "upcoming"
+      "type": "upcoming",
+      "adminStatus": "pending",
+      "adminComment": ""
     },
     {
       "id": 6,
@@ -51,7 +61,9 @@
       "description": "Join us for a 24-hour coding challenge!",
       "venue": "Building 22",
       "organiser": "Coding Club",
-      "type": "upcoming"
+      "type": "upcoming",
+      "adminStatus": "pending",
+      "adminComment": ""
     },
     {
       "id": 7,
@@ -60,7 +72,9 @@
       "description": "Meet top employers and explore opportunities.",
       "venue": "Main Hall",
       "organiser": "Career Center",
-      "type": "upcoming"
+      "type": "upcoming",
+      "adminStatus": "pending",
+      "adminComment": ""
     },
     {
       "id": 8,
@@ -69,7 +83,9 @@
       "description": "",
       "venue": "Outdoor Stage",
       "organiser": "Student Council",
-      "type": "upcoming"
+      "type": "upcoming",
+      "adminStatus": "pending",
+      "adminComment": ""
     },
     {
       "id": 9,
@@ -78,7 +94,9 @@
       "description": "Learn the fundamentals of blockchain tech.",
       "venue": "Lecture Hall 8",
       "organiser": "Finance Club",
-      "type": "upcoming"
+      "type": "upcoming",
+      "adminStatus": "pending",
+      "adminComment": ""
     },
     {
       "id": 10,
@@ -87,7 +105,9 @@
       "description": "Showcase of stunning student photography.",
       "venue": "Gallery Room",
       "organiser": "Media Club",
-      "type": "upcoming"
+      "type": "upcoming",
+      "adminStatus": "pending",
+      "adminComment": ""
     }
   ]
   
