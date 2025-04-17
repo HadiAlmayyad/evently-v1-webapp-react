@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button, Modal, Placeholder } from "react-bootstrap";
 import NavbarComponent from "../../components/MyEventsPageComponents/NavbarComponent";
 
-function EventManage()
+function EventManagePage()
 {
 	const [ showPreview, setShowPreview ] = useState( false );
 
@@ -36,4 +36,4 @@ function EventManage()
 	);
 }
 
-export default EventManage;
+export default EventManagePage;
