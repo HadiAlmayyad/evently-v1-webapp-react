@@ -1,0 +1,62 @@
+/* Venues Page Styling */
+.venues-page {
+    background-color: var(--ev-background);
+    min-height: 100vh;
+    padding-bottom: 50px;
+  }
+  
+  .event-card {
+    background-color: #32234F;
+    border-radius: 10px;
+    color: #E8E7EA;
+  }
+  
+  .event-card .btn {
+    transition: background-color 0.3s ease;
+  }
+  
+  .event-card .btn:hover {
+    background-color: #7F5AF0;
+  }
+  
+  /* Modal Styling */
+  .modal-content {
+    background-color: #261D41;
+    color: #CFCBD8;
+    border-radius: 12px;
+  }
+
+  /* Venue Card Styling */
+.venue-card {
+    background-color: #32234F;
+    color: #E8E7EA;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .venue-card:hover {
+    transform: translateY(+5px);  /* Add subtle hover effect */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
+  }
+  
+  .venue-card .btn {
+    transition: background-color 0.3s ease;
+  }
+  
+  .venue-card .btn:hover {
+    background-color: rgba(127, 90, 240, 0.1);
+  }
+  
+  /* Badge Styling for Available/Unavailable */
+  .badge.bg-success {
+    background-color: #28a745;
+  }
+  
+  .badge.bg-danger {
+    background-color: #dc3545;
+  }
+
+  .venues-header { 
+    color: var(--ev-text);
+  }
+  
