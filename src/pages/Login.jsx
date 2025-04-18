@@ -45,13 +45,11 @@ function Login() {
 
     if (isLogin) {
       const matchedUser = dummyUsers.find(
-        (u) => u.email === email && u.password === password,
+        (u) => u.email === email && u.password === password
       );
 
       if (matchedUser) {
-        const savedProfile = localStorage.getItem(
-          `profile_${matchedUser.email}`,
-        );
+        const savedProfile = localStorage.getItem(`profile_${matchedUser.email}`);
         const finalUser = savedProfile ? JSON.parse(savedProfile) : matchedUser;
 
         localStorage.setItem("user", JSON.stringify(finalUser));
@@ -68,15 +66,14 @@ function Login() {
     <>
       <Navbar showLogout={false} />
       <div
-        className="d-flex justify-content-center align-items-center vh-100"
+        className="d-flex justify-content-center align-items-center vh-100 px-3"
         style={{
           background: "linear-gradient(to bottom, #4b0082, #000000)",
         }}
       >
         <div
-          className="p-5 text-white"
+          className="p-5 text-white w-100"
           style={{
-            width: "100%",
             maxWidth: "500px",
             backgroundColor: "#1f1235",
             border: "1px solid #2d1e50",
@@ -152,3 +149,4 @@ function Login() {
 }
 
 export default Login;
+

@@ -10,25 +10,18 @@ function Profile() {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const [editMode, setEditMode] = useState(false);
   const [user, setUser] = useState(storedUser || {});
-  const [imagePreview, setImagePreview] = useState(
-    getDefaultImage(storedUser?.role),
-  );
+  const [imagePreview, setImagePreview] = useState(getDefaultImage(storedUser?.role));
   const [defaultImage] = useState(getDefaultImage(storedUser?.role));
 
   useEffect(() => {
-    if (!storedUser) {
-      navigate("/login");
-    }
+    if (!storedUser) navigate("/login");
   }, [storedUser, navigate]);
 
   function getDefaultImage(role) {
     switch (role) {
-      case "Admin":
-        return adminImg;
-      case "Organizer":
-        return femaleImg;
-      default:
-        return maleImg;
+      case "Admin": return adminImg;
+      case "Organizer": return femaleImg;
+      default: return maleImg;
     }
   }
 
@@ -46,13 +39,10 @@ function Profile() {
     }
   };
 
-  const handleResetImage = () => {
-    setImagePreview(defaultImage);
-  };
+  const handleResetImage = () => setImagePreview(defaultImage);
 
   const toggleEdit = () => {
     if (editMode) {
-      //if cancelling, restore from localStorage
       const latest = JSON.parse(localStorage.getItem("user"));
       setUser(latest);
       setImagePreview(getDefaultImage(latest.role));
@@ -64,17 +54,12 @@ function Profile() {
     const prevEmail = storedUser.email;
     const updatedUser = { ...user };
 
-    // Remove old saved profile if email was changed
     if (updatedUser.email !== prevEmail) {
       localStorage.removeItem(`profile_${prevEmail}`);
     }
 
     localStorage.setItem("user", JSON.stringify(updatedUser));
-    localStorage.setItem(
-      `profile_${updatedUser.email}`,
-      JSON.stringify(updatedUser),
-    );
-
+    localStorage.setItem(`profile_${updatedUser.email}`, JSON.stringify(updatedUser));
     setEditMode(false);
     alert("Profile saved!");
   };
@@ -83,13 +68,14 @@ function Profile() {
     <>
       <Navbar showLogout={true} />
       <div
-        className="d-flex flex-column align-items-center vh-100"
+        className="d-flex flex-column align-items-center"
         style={{
+          minHeight: "100vh",
+          paddingTop: "100px",
+          paddingBottom: "40px",
           background: "linear-gradient(to bottom, #4b0082, #000000)",
-          paddingTop: "50px",
         }}
       >
-        {/* Header */}
         <h2
           style={{
             fontSize: "3rem",
@@ -141,17 +127,10 @@ function Profile() {
             fontSize: "1.1rem",
           }}
         >
-          {/* Editable fields */}
           <div className="mb-3">
             <strong>Full Name:</strong>{" "}
             {editMode ? (
-              <input
-                type="text"
-                name="fullName"
-                value={user.fullName}
-                onChange={handleInputChange}
-                className="form-control mt-2"
-              />
+              <input type="text" name="fullName" value={user.fullName} onChange={handleInputChange} className="form-control mt-2" />
             ) : (
               user.fullName
             )}
@@ -160,13 +139,7 @@ function Profile() {
           <div className="mb-3">
             <strong>Email:</strong>{" "}
             {editMode ? (
-              <input
-                type="email"
-                name="email"
-                value={user.email}
-                onChange={handleInputChange}
-                className="form-control mt-2"
-              />
+              <input type="email" name="email" value={user.email} onChange={handleInputChange} className="form-control mt-2" />
             ) : (
               user.email
             )}
@@ -178,13 +151,7 @@ function Profile() {
               <div className="mb-3">
                 <strong>ID:</strong>{" "}
                 {editMode ? (
-                  <input
-                    type="text"
-                    name="id"
-                    value={user.id}
-                    onChange={handleInputChange}
-                    className="form-control mt-2"
-                  />
+                  <input type="text" name="id" value={user.id} onChange={handleInputChange} className="form-control mt-2" />
                 ) : (
                   user.id
                 )}
@@ -197,13 +164,7 @@ function Profile() {
               <div className="mb-3">
                 <strong>Major:</strong>{" "}
                 {editMode ? (
-                  <input
-                    type="text"
-                    name="major"
-                    value={user.major}
-                    onChange={handleInputChange}
-                    className="form-control mt-2"
-                  />
+                  <input type="text" name="major" value={user.major} onChange={handleInputChange} className="form-control mt-2" />
                 ) : (
                   user.major
                 )}
@@ -212,13 +173,7 @@ function Profile() {
               <div className="mb-3">
                 <strong>Gender:</strong>{" "}
                 {editMode ? (
-                  <input
-                    type="text"
-                    name="gender"
-                    value={user.gender}
-                    onChange={handleInputChange}
-                    className="form-control mt-2"
-                  />
+                  <input type="text" name="gender" value={user.gender} onChange={handleInputChange} className="form-control mt-2" />
                 ) : (
                   user.gender
                 )}
@@ -226,28 +181,18 @@ function Profile() {
             </>
           )}
 
-          {/* Upload image (edit mode only) */}
+          {/* Upload image */}
           {editMode && (
             <div className="mb-3">
-              <label htmlFor="profilePic" className="form-label">
-                Upload Profile Picture
-              </label>
-              <input
-                type="file"
-                className="form-control"
-                id="profilePic"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
-              <button
-                className="btn btn-sm mt-2 btn-light"
-                onClick={handleResetImage}
-              >
+              <label htmlFor="profilePic" className="form-label">Upload Profile Picture</label>
+              <input type="file" className="form-control" id="profilePic" accept="image/*" onChange={handleImageChange} />
+              <button className="btn btn-sm mt-2 btn-light" onClick={handleResetImage}>
                 Reset Image
               </button>
             </div>
           )}
 
+          {/* Buttons */}
           <div className="d-flex justify-content-end gap-2">
             {editMode ? (
               <>
@@ -261,6 +206,7 @@ function Profile() {
                     borderRadius: "10px",
                     padding: "10px 20px",
                     fontWeight: "bold",
+                    boxShadow: "0 0 15px rgba(108, 74, 182, 0.6)",
                   }}
                 >
                   Save Changes
@@ -287,6 +233,7 @@ function Profile() {
                   borderRadius: "10px",
                   padding: "10px 20px",
                   fontWeight: "bold",
+                  boxShadow: "0 0 15px rgba(108, 74, 182, 0.6)",
                 }}
               >
                 Edit Profile
@@ -300,3 +247,4 @@ function Profile() {
 }
 
 export default Profile;
+

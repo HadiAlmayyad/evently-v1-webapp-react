@@ -3,60 +3,90 @@ import { Link, useNavigate } from "react-router-dom";
 function Navbar({ showLogout = true }) {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  const role = user?.role;
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/login");
   };
 
-  const role = user?.role;
-
   return (
-    <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#1A1A1A", padding: "10px 30px" }}>
-      <div className="container-fluid d-flex justify-content-between">
-        <div>
-          <Link className="navbar-brand fw-bold" to="/" style={{ color: "#7b2cbf", fontSize: "24px" }}>
-            Evently
-          </Link>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top px-4">
+      <div className="container-fluid">
+        {/* Logo */}
+        <Link className="navbar-brand fw-bold" to="/" style={{ color: "#A259FF", fontSize: "24px" }}>
+          Evently
+        </Link>
 
-          {/* Shared for Attendee + Organizer */}
-          {(role === "Attendee" || role === "Organizer") && (
-            <>
-              <Link className="nav-link d-inline text-white mx-3" to="/profile">Profile</Link>
-              <Link className="nav-link d-inline text-white mx-3" to="/">My Events</Link>
-              <Link className="nav-link d-inline text-white mx-3" to="/">Discover Events</Link>
-            </>
-          )}
+        {/* Hamburger Toggle ONLY if showLogout is true (not on login page) */}
+        {showLogout && (
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+        )}
 
-          {/* Admin Nav */}
-          {role === "Admin" && (
-            <>
-              <Link className="nav-link d-inline text-white mx-3" to="/profile">Profile</Link>
-              <Link className="nav-link d-inline text-white mx-3" to="/">Discover Events</Link>
-              <Link className="nav-link d-inline text-white mx-3" to="/dashboard">Dashboard</Link>
-              <Link className="nav-link d-inline text-white mx-3" to="/venues">Venues</Link>
-            </>
+        {/* Navbar Items */}
+        <div className={showLogout ? "collapse navbar-collapse" : ""} id="mainNavbar">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            {/* Shared for Attendee + Organizer */}
+            {(role === "Attendee" || role === "Organizer") && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link text-white" to="/profile">Profile</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link text-white" to="/">My Events</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link text-white" to="/">Discover Events</Link>
+                </li>
+              </>
+            )}
+
+            {/* Admin Navbar */}
+            {role === "Admin" && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link text-white" to="/profile">Profile</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link text-white" to="/">Discover Events</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link text-white" to="/dashboard">Dashboard</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link text-white" to="/venues">Venues</Link>
+                </li>
+              </>
+            )}
+          </ul>
+
+          {/* Right Side: Logout */}
+          {showLogout && (
+            <div className="text-white">
+              <span className="me-3">Signed In As {user?.role || "Guest"}</span>
+              <span
+                onClick={handleLogout}
+                style={{ cursor: "pointer", textDecoration: "underline" }}
+              >
+                Logout
+              </span>
+            </div>
           )}
         </div>
-
-        {showLogout && (
-          <div className="text-end">
-            <span className="text-white me-2">
-              Signed In As {user?.role || "Guest"}
-            </span>{" "}
-            |{" "}
-            <span
-              className="text-white ms-2"
-              style={{ cursor: "pointer", textDecoration: "underline" }}
-              onClick={handleLogout}
-            >
-              Logout
-            </span>
-          </div>
-        )}
       </div>
     </nav>
   );
 }
 
 export default Navbar;
+
