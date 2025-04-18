@@ -15,10 +15,10 @@ function NavbarComponent({ activePage, userRole }) {
           <Nav className="me-auto">
             <Nav.Link href="/profile" active={activePage === 'profile'}>Profile</Nav.Link>
             <Nav.Link href="/discover" active={activePage === 'discover'}>Discover Events</Nav.Link>
-            <Nav.Link href="/dashboard" active={activePage === 'dashboard'} style={activePage === 'dashboard' ? { color: '#9884C4' } : {}}>
+            <Nav.Link href="/dashboard" active={activePage === 'dashboard'} style={activePage === 'dashboard' ? { color: '#5120E3' } : {}}>
               Dashboard
             </Nav.Link>
-            <Nav.Link href="/venues" active={activePage === 'venues'}>
+            <Nav.Link href="/venues" active={activePage === 'venues'} style={activePage === 'venues' ? { color: '#5120E3' } : {}}>
               Venues
             </Nav.Link>
           </Nav>
