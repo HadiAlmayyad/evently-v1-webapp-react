@@ -23,6 +23,12 @@ function EventManagePage()
 			<Container fluid="md">
 				<Form>
 					<Form.Group>
+						<FloatingLabel label="Title">
+							<Form.Control/>
+						</FloatingLabel>
+					</Form.Group>
+					<br/>
+					<Form.Group>
 						<Form.Label>Thumbnail</Form.Label>
 						<Form.Control type="file"/>
 						<Form.Text>Upload an image</Form.Text>
