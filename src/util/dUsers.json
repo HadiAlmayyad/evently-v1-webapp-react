@@ -7,7 +7,8 @@
       "role": "Atendee",
       "major": "Computer Science",
       "gender": "Female",
-      "accountState": "active"
+      "accountState": "active",
+      "photoUrl": "../assets/card-img-1.jpg"
     },
     {
       "id": 2,
@@ -17,7 +18,8 @@
       "role": "Organiser",
       "major": "Electrical Engineering",
       "gender": "Male",
-      "accountState": "active"
+      "accountState": "active",
+      "photoUrl": "../assets/card-img-1.jpg"
     },
     {
       "id": 3,
@@ -27,7 +29,8 @@
       "role": "Atendee",
       "major": "Software Engineering",
       "gender": "Female",
-      "accountState": "active"
+      "accountState": "active",
+      "photoUrl": "../assets/card-img-1.jpg"
     },
     {
       "id": 4,
@@ -37,7 +40,8 @@
       "role": "Organiser",
       "major": "Mechanical Engineering",
       "gender": "Male",
-      "accountState": "active"
+      "accountState": "active",
+      "photoUrl": "../assets/card-img-1.jpg"
     },
     {
       "id": 5,
@@ -47,58 +51,8 @@
       "role": "Atendee",
       "major": "Architecture",
       "gender": "Female",
-      "accountState": "active"
-    },
-    {
-      "id": 6,
-      "fullName": "Abdullah Al-Dossary",
-      "email": "abdullah.d@kfupm.edu.sa",
-      "stuId": "201910006",
-      "role": "Organiser",
-      "major": "Civil Engineering",
-      "gender": "Male",
-      "accountState": "active"
-
-    },
-    {
-      "id": 7,
-      "fullName": "Mona Al-Shehri",
-      "email": "mona.s@kfupm.edu.sa",
-      "stuId": "201910007",
-      "role": "Atendee",
-      "major": "Chemical Engineering",
-      "gender": "Female",
-      "accountState": "active"
-    },
-    {
-      "id": 8,
-      "fullName": "Yousef Al-Otaibi",
-      "email": "yousef.o@kfupm.edu.sa",
-      "stuId": "201910008",
-      "role": "Atendee",
-      "major": "Business Administration",
-      "gender": "Male",
-      "accountState": "suspended"
-    },
-    {
-      "id": 9,
-      "fullName": "Noura Al-Zahrani",
-      "email": "noura.z@kfupm.edu.sa",
-      "stuId": "201910009",
-      "role": "Organiser",
-      "major": "Information Systems",
-      "gender": "Female",
-      "accountState": "suspended"
-    },
-    {
-      "id": 10,
-      "fullName": "Mohammed Al-Rashid",
-      "email": "mohammed.r@kfupm.edu.sa",
-      "stuId": "201910010",
-      "role": "Admin",
-      "major": "Cybersecurity",
-      "gender": "Male",
-      "accountState": "suspended"
+      "accountState": "active",
+      "photoUrl": "../assets/card-img-1.jpg"
     }
   ]
   

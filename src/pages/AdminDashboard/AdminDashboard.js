@@ -3,7 +3,7 @@ import './AdminDashboard.css';
 import { Container, Tabs, Tab } from "react-bootstrap";
 import EventsTabContent from "../../components/AdminDashboardComponents/EventsTabContent";
 import UsersTabContent from "../../components/AdminDashboardComponents/UsersTabContent";
-import SettingsTabContent from "../../components/AdminDashboardComponents/SettingsTabContent";
+import ConfiguratoinTabContent from "../../components/AdminDashboardComponents/ConfigurationTabContent";
 import NavbarComponent from "../../components/AdminDashboardComponents/NavbarComponent";
 
 
@@ -18,7 +18,7 @@ function AdminDashboard() {
             <Container expand="md" className='mt-5'>
                 <Tabs
                     defaultActiveKey="events"
-                    className="mb-3"
+                    className="mb-3 ev-tabs"
                     fill
                 >
                     <Tab eventKey="events" title="Events">
@@ -27,8 +27,8 @@ function AdminDashboard() {
                     <Tab eventKey="users" title="Users">
                         <UsersTabContent />
                     </Tab>
-                    <Tab eventKey="settings" title="Settings">
-                        <SettingsTabContent />
+                    <Tab eventKey="configuration" title="Configuration">
+                        <ConfiguratoinTabContent />
                     </Tab>
 
                 </Tabs>

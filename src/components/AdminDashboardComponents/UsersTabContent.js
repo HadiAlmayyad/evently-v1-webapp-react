@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Card, Row, Col, Badge, Dropdown } from "react-bootstrap";
-import users from "../../util/dUsers.json"; // your user data
+import users from "../../util/dUsers.json"; 
+import UserViewModal from "./UserViewModal";
 
 export default function UsersTabContent() {
+
   const [selectedUser, setSelectedUser] = useState(null);
-  const [userList, setUserList] = useState(users); // from your JSON
+  const [userList, setUserList] = useState(users); // from JSON
 
   const handleView = (user) => setSelectedUser(user);
 
@@ -14,7 +16,9 @@ export default function UsersTabContent() {
   const handleAction = (userId, action) => {
     const newState =
       action === "suspend" ? "suspended" :
-      action === "delete" ? "deleted" : "active";
+      action === "delete" ? "deleted" :
+      action === "restore" ? "active":
+      "active";
   
     setUserList((prev) =>
       prev.map((user) =>
@@ -25,7 +29,11 @@ export default function UsersTabContent() {
 
   return (
     <>
+
+      {/* Users List */}
       {userList.map((user) => (
+
+        // Container of each user
         <Card
           key={user.id}
           className="mb-3 p-3 custom-user-card"
@@ -67,7 +75,9 @@ export default function UsersTabContent() {
                 {user.accountState}
                 </Badge>
             </Col>
+                
 
+                {/* Manage button */}
             <Col xs={6} md={2} className="text-end">
               <Dropdown className="user-dropdown" onClick={(e) => e.stopPropagation()}>
                 <Dropdown.Toggle variant="outline-light" size="sm">
@@ -80,6 +90,9 @@ export default function UsersTabContent() {
                     <Dropdown.Item onClick={() => handleAction(user.id, "delete")}>
                         Delete Account
                     </Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleAction(user.id, "restore")}>
+                        Restore Account
+                    </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Col>
@@ -87,14 +100,13 @@ export default function UsersTabContent() {
         </Card>
       ))}
 
-      {/* Optional Modal for User Details */}
-      {/* {selectedUser && (
-        <UserDetailModal
-          user={selectedUser}
-          show={true}
-          onHide={handleClose}
+      {/* This comoponent is shown when clicking on a user card */}
+      <UserViewModal 
+        user={selectedUser} 
+        show={!!selectedUser} 
+        onHide={handleClose} 
         />
-      )} */}
+
     </>
   );
 }

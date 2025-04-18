@@ -1,0 +1,30 @@
+[
+    {
+        "id" : 1,
+        "title" : "Help Session"
+    },
+    {
+        "id" : 2,
+        "title" : "Lecture"
+    },
+    {
+        "id" : 3,
+        "title" : "Workshop"
+    },
+    {
+        "id" : 4,
+        "title" : "Bootcamp"
+    },
+    {
+        "id" : 5,
+        "title" : "Short Course"
+    },
+    {
+        "id" : 6,
+        "title" : "Entertainment"
+    },
+    {
+        "id" : 7,
+        "title" : "Competition"
+    }
+]

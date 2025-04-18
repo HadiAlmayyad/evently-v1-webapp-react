@@ -1,99 +1,126 @@
-import React, { useState } from "react";
-import { Button, Card, ListGroup, Row, Col, Container } from "react-bootstrap";
-import initialEvents from "../../util/dEvAll.json";
-import EventViewModal from "./EventViewModal";
+import React, { useState } from 'react';
+import { Button, Card, Row, Col, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import events from '../../util/dEvAll.json';
+import EventViewModal from './EventViewModal';
 
-function EventsTabContent() {
-  const [eventList, setEventList] = useState(initialEvents);
+export default function EventsTabContent() {
+  const [eventList, setEventList] = useState(events);
+  const [showModal, setShowModal] = useState(false); // Controls modal visibility
+  const [selectedEvent, setSelectedEvent] = useState(null); // Stores the event to be displayed in the modal
 
   const handleApprove = (id) => {
     setEventList((prev) =>
-      prev.map((ev) =>
-        ev.id === id ? { ...ev, adminStatus: "approved" } : ev
+      prev.map((event) =>
+        event.id === id ? { ...event, adminStatus: 'approved' } : event
       )
     );
   };
 
   const handleReject = (id) => {
     setEventList((prev) =>
-      prev.map((ev) =>
-        ev.id === id ? { ...ev, adminStatus: "rejected" } : ev
+      prev.map((event) =>
+        event.id === id ? { ...event, adminStatus: 'rejected' } : event
       )
     );
   };
 
   const handleRemove = (id) => {
-    setEventList((prev) => prev.filter((ev) => ev.id !== id));
+    setEventList((prev) => prev.filter((event) => event.id !== id));
   };
 
-  // EventViewModals 
-  const [selectedEvent, setSelectedEvent] = useState(null); // holds data for modal
-  const [showModal, setShowModal] = useState(false);
-
-  const handleOpenModal = (event) => {
+  const handleView = (event) => {
     setSelectedEvent(event);
-    setShowModal(true);
+    setShowModal(true); // Show the modal when the "View" button is clicked
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
-    setSelectedEvent(null);
+    setSelectedEvent(null); // Reset selected event when the modal is closed
   };
 
   return (
-    <ListGroup className="ev-list">
+    <div className="events-tab-content">
+      <Row className="g-3">
         {eventList.map((event) => (
-            <ListGroup.Item 
-                key={event.id} 
-                action onClick={()=> {handleOpenModal(event)}}
-                className="ev-list-item"
+          <Col xs={12} sm={12} md={6} lg={6} xl={4} key={event.id}>
+            <Card className="event-card">
+              <Card.Body>
+                <Card.Title>{event.title}</Card.Title>
+                <Card.Text>
+                  <strong>Organiser:</strong> {event.organiser}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Venue:</strong> {event.venue}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Date & Time:</strong> {event.datetime}
+                </Card.Text>
+                <Badge
+                  bg={
+                    event.adminStatus === 'approved'
+                      ? 'success'
+                      : event.adminStatus === 'rejected'
+                      ? 'danger'
+                      : 'warning'
+                  }
                 >
-                <Row className="align-items-center">
-                <Col>{event.title}</Col>
+                  {event.adminStatus}
+                </Badge>
 
-                <Col
-                    xs={11}
-                    sm={8}
-                    md={6}
-                    lg={4}
-                    className="d-flex justify-content-between align-items-center"
-                >
-                    <Button
-                    className="btn-app"
+                <div className="event-actions mt-3">
+                  <Button
+                    variant="outline-success"
+                    size="sm"
                     onClick={() => handleApprove(event.id)}
-                    disabled={event.adminStatus === "approved"}
-                    >
-                        {event.adminStatus === "approved" ? "Approved" : "Approve"}
-                    </Button>
+                    disabled={event.adminStatus === 'approved'}
+                  >
+                    {event.adminStatus === 'approved' ? 'Approved' : 'Approve'}
+                  </Button>
 
-                    <Button
-                    className="btn btn-danger me-1"
+                  <Button
+                    variant="outline-danger"
+                    size="sm"
+                    className="ms-2"
                     onClick={() => handleReject(event.id)}
-                    disabled={event.adminStatus === "rejected"}
-                    >
-                        {event.adminStatus === "rejected" ? "Rejected" : "Reject"}
-                    </Button>
+                    disabled={event.adminStatus === 'rejected'}
+                  >
+                    {event.adminStatus === 'rejected' ? 'Rejected' : 'Reject'}
+                  </Button>
 
-                    <Button
-                    className="btn btn-secondary"
+                  <Button
+                    variant="outline-secondary"
+                    size="sm"
+                    className="ms-2"
                     onClick={() => handleRemove(event.id)}
-                    disabled={event.adminStatus === "pending"}
-                    >
-                        Remove
-                    </Button>
-                </Col>
-                </Row>
-            </ListGroup.Item>
+                    disabled={event.adminStatus === 'pending'}
+                  >
+                    Remove
+                  </Button>
+
+                  <Button
+                    variant="outline-info"
+                    size="sm"
+                    className="ms-2"
+                    onClick={() => handleView(event)} // Open the modal on "View" button click
+                  >
+                    View
+                  </Button>
+                  
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
         ))}
+      </Row>
 
-        <EventViewModal 
-            show={showModal}
-            onHide={handleCloseModal}
-            event={selectedEvent}
+            {/* View Modal */}
+      {selectedEvent && (
+        <EventViewModal
+          show={showModal}
+          onHide={handleCloseModal}
+          event={selectedEvent} // Pass selected event to the modal
         />
-
-    </ListGroup>
+      )}
+    </div>
   );
 }
-
-export default EventsTabContent;
