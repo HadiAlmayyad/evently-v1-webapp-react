@@ -19,7 +19,7 @@ function Login() {
       gender: "Male",
     },
     {
-      fullName: "Sarah Khalid",
+      fullName: "Sarah Organizer",
       email: "sarah@org.com",
       password: "123456",
       role: "Organizer",
@@ -28,7 +28,7 @@ function Login() {
       gender: "Female",
     },
     {
-      fullName: "Admin",
+      fullName: "Admin User",
       email: "admin@admin.com",
       password: "admin123",
       role: "Admin",
@@ -49,7 +49,12 @@ function Login() {
       );
 
       if (matchedUser) {
-        localStorage.setItem("user", JSON.stringify(matchedUser));
+        const savedProfile = localStorage.getItem(
+          `profile_${matchedUser.email}`,
+        );
+        const finalUser = savedProfile ? JSON.parse(savedProfile) : matchedUser;
+
+        localStorage.setItem("user", JSON.stringify(finalUser));
         navigate("/profile");
       } else {
         alert("Invalid email or password");

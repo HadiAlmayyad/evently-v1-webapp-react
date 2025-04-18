@@ -1,16 +1,83 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import maleImg from "../assets/male.png";
+import femaleImg from "../assets/female.png";
+import adminImg from "../assets/admin.jpeg";
 
 function Profile() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const [editMode, setEditMode] = useState(false);
+  const [user, setUser] = useState(storedUser || {});
+  const [imagePreview, setImagePreview] = useState(
+    getDefaultImage(storedUser?.role),
+  );
+  const [defaultImage] = useState(getDefaultImage(storedUser?.role));
 
   useEffect(() => {
-    if (!user) {
+    if (!storedUser) {
       navigate("/login");
     }
-  }, [user, navigate]);
+  }, [storedUser, navigate]);
+
+  function getDefaultImage(role) {
+    switch (role) {
+      case "Admin":
+        return adminImg;
+      case "Organizer":
+        return femaleImg;
+      default:
+        return maleImg;
+    }
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUser((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setImagePreview(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleResetImage = () => {
+    setImagePreview(defaultImage);
+  };
+
+  const toggleEdit = () => {
+    if (editMode) {
+      //if cancelling, restore from localStorage
+      const latest = JSON.parse(localStorage.getItem("user"));
+      setUser(latest);
+      setImagePreview(getDefaultImage(latest.role));
+    }
+    setEditMode((prev) => !prev);
+  };
+
+  const handleSave = () => {
+    const prevEmail = storedUser.email;
+    const updatedUser = { ...user };
+
+    // Remove old saved profile if email was changed
+    if (updatedUser.email !== prevEmail) {
+      localStorage.removeItem(`profile_${prevEmail}`);
+    }
+
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+    localStorage.setItem(
+      `profile_${updatedUser.email}`,
+      JSON.stringify(updatedUser),
+    );
+
+    setEditMode(false);
+    alert("Profile saved!");
+  };
 
   return (
     <>
@@ -22,7 +89,7 @@ function Profile() {
           paddingTop: "50px",
         }}
       >
-        {/* Clean and bold heading */}
+        {/* Header */}
         <h2
           style={{
             fontSize: "3rem",
@@ -36,7 +103,7 @@ function Profile() {
           Your Profile
         </h2>
 
-        {/* Profile image container */}
+        {/* Profile Image */}
         <div className="d-flex align-items-center mb-4">
           <div
             style={{
@@ -50,13 +117,12 @@ function Profile() {
             }}
           >
             <img
-              src=""
-              alt=""
+              src={imagePreview}
+              alt="profile"
               style={{
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                display: "none",
               }}
             />
           </div>
@@ -75,39 +141,157 @@ function Profile() {
             fontSize: "1.1rem",
           }}
         >
-          <p>
-            <strong>Full Name:</strong> {user?.fullName}
-          </p>
-          <p>
-            <strong>Email:</strong> {user?.email}
-          </p>
-          <p>
-            <strong>ID:</strong> {user?.id}
-          </p>
-          <p>
-            <strong>Role:</strong> {user?.role}
-          </p>
-          <p>
-            <strong>Major:</strong> {user?.major}
-          </p>
-          <p>
-            <strong>Gender:</strong> {user?.gender}
-          </p>
+          {/* Editable fields */}
+          <div className="mb-3">
+            <strong>Full Name:</strong>{" "}
+            {editMode ? (
+              <input
+                type="text"
+                name="fullName"
+                value={user.fullName}
+                onChange={handleInputChange}
+                className="form-control mt-2"
+              />
+            ) : (
+              user.fullName
+            )}
+          </div>
 
-          <div className="d-flex justify-content-end">
-            <button
-              className="btn mt-3"
-              style={{
-                backgroundColor: "#6C4AB6",
-                color: "white",
-                border: "none",
-                borderRadius: "10px",
-                padding: "10px 20px",
-                fontWeight: "bold",
-              }}
-            >
-              Edit Profile
-            </button>
+          <div className="mb-3">
+            <strong>Email:</strong>{" "}
+            {editMode ? (
+              <input
+                type="email"
+                name="email"
+                value={user.email}
+                onChange={handleInputChange}
+                className="form-control mt-2"
+              />
+            ) : (
+              user.email
+            )}
+          </div>
+
+          {/* Only show for non-admins */}
+          {user.role !== "Admin" && (
+            <>
+              <div className="mb-3">
+                <strong>ID:</strong>{" "}
+                {editMode ? (
+                  <input
+                    type="text"
+                    name="id"
+                    value={user.id}
+                    onChange={handleInputChange}
+                    className="form-control mt-2"
+                  />
+                ) : (
+                  user.id
+                )}
+              </div>
+
+              <div className="mb-3">
+                <strong>Role:</strong> {user.role}
+              </div>
+
+              <div className="mb-3">
+                <strong>Major:</strong>{" "}
+                {editMode ? (
+                  <input
+                    type="text"
+                    name="major"
+                    value={user.major}
+                    onChange={handleInputChange}
+                    className="form-control mt-2"
+                  />
+                ) : (
+                  user.major
+                )}
+              </div>
+
+              <div className="mb-3">
+                <strong>Gender:</strong>{" "}
+                {editMode ? (
+                  <input
+                    type="text"
+                    name="gender"
+                    value={user.gender}
+                    onChange={handleInputChange}
+                    className="form-control mt-2"
+                  />
+                ) : (
+                  user.gender
+                )}
+              </div>
+            </>
+          )}
+
+          {/* Upload image (edit mode only) */}
+          {editMode && (
+            <div className="mb-3">
+              <label htmlFor="profilePic" className="form-label">
+                Upload Profile Picture
+              </label>
+              <input
+                type="file"
+                className="form-control"
+                id="profilePic"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+              <button
+                className="btn btn-sm mt-2 btn-light"
+                onClick={handleResetImage}
+              >
+                Reset Image
+              </button>
+            </div>
+          )}
+
+          <div className="d-flex justify-content-end gap-2">
+            {editMode ? (
+              <>
+                <button
+                  className="btn mt-3"
+                  onClick={handleSave}
+                  style={{
+                    backgroundColor: "#6C4AB6",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "10px",
+                    padding: "10px 20px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Save Changes
+                </button>
+                <button
+                  className="btn mt-3 btn-secondary"
+                  onClick={toggleEdit}
+                  style={{
+                    borderRadius: "10px",
+                    padding: "10px 20px",
+                  }}
+                >
+                  Cancel
+                </button>
+              </>
+            ) : (
+              <button
+                className="btn mt-3"
+                onClick={toggleEdit}
+                style={{
+                  backgroundColor: "#6C4AB6",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "10px",
+                  padding: "10px 20px",
+                  fontWeight: "bold",
+                }}
+              >
+                Edit Profile
+              </button>
+            )}
           </div>
         </div>
       </div>
