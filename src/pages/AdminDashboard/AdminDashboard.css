@@ -1,0 +1,303 @@
+
+
+.dashboard-page {
+background-color: var(--ev-background);
+min-height: 100vh;
+padding-bottom: 50px;
+}
+
+  
+.btn-app { 
+    background-color: var(--ev-enabled);
+    color: #E8E7EA;
+    border: var(--ev-enabled);
+    font-weight: bold;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+  
+.btn-app:hover { 
+    background-color: var(--ev-button);
+    color: #E8E7EA;
+    border: solid var(--ev-button);
+    font-weight: bold;
+}
+  
+.btn-app:disabled { 
+    background-color: var(--ev-enabled);
+    color: #E8E7EA;
+    border: var(--ev-enabled);
+    font-weight: bold;
+    margin-left: 4px;
+}
+
+.ev-OnBackground {
+    background-color: var(--ev-on-background);
+    color: var(--ev-text);
+  }
+
+  
+.ev-discription {
+    background-color: var(--ev-background);
+    color: #ffffff;
+    border: 1px solid var(--ev-background);
+}
+
+/* Base Tab Styling */
+.ev-tabs {
+  background-color: var(--ev-background);  /* Dark background */
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Tab Titles */
+.ev-tabs .nav-link {
+  color: var(--ev-on-background); /* Light color for tab text */
+  background-color: transparent;  /* Remove default background */
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.ev-tabs .nav-link:hover {
+  background-color: var(--ev-background-light);  /* Slightly lighter color on hover */
+  color: #7F5AF0;  /* Highlight the text color on hover */
+}
+
+/* Active Tab Styling */
+.ev-tabs .nav-link.active {
+  background-color: var(--ev-on-background);  /* Lighter background when active */
+  color: var(--ev-logo); /* Color the active tab text with primary color */
+  border: 2px solid #7F5AF0;  /* Add border around active tab */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);  /* Add a soft shadow for depth */
+}
+
+/* Tab content section */
+.ev-tabs .tab-content {
+  padding: 20px 0;
+  background-color: var(--ev-background-light);
+  border-radius: 10px;
+  border-top: 1px solid #3a2f5e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .ev-tabs .nav-link {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+}
+
+
+.ev-list {
+    background-color: #261D41;
+    border: none;
+  }
+  
+.ev-list-item {
+    background-color: #261D41;
+    color: #CFCBD8;
+    font-weight: bold;
+    border: none;
+    border-bottom: 1px solid #3a2f55; /* optional separator */
+    padding: 1rem;
+  }
+  
+.ev-list-item:hover {
+    background-color: #2F2550; /* hover effect */
+    cursor: pointer;
+  }
+
+.ev-list-item.list-group-item-action:focus,
+.ev-list-item.list-group-item-action:hover {
+  background-color: #2F2550;
+  color: #fff;
+}
+
+.custom-modal .modal-content {
+    background-color: #1E133D;
+    color: #E8E7EA;
+    border-radius: 12px;
+    border: none;
+  }
+  
+.custom-modal .modal-header {
+    background-color: #261D41;
+    border-bottom: none;
+}
+  
+.custom-modal .modal-title {
+    color: #CFCBD8;
+}
+  
+.bg-dark-subtle {
+  font-weight: bold;
+}
+
+.custom-user-card {
+  background-color: #261D41;
+  color: #CFCBD8;
+  border-radius: 12px;
+  transition: "background" 0.2s;
+}
+
+.custom-user-card:hover {
+background-color: #2F2550;
+}
+
+.user-email {
+font-size: 0.85rem;
+color: #9884C4;
+font-style: italic;
+}
+
+.user-dropdown .dropdown-toggle {
+  background-color: transparent;
+  border: 1px solid #7F5AF0;
+  color: #7F5AF0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.user-dropdown .dropdown-menu {
+  background-color: #2A1C4C;
+  border: none;
+  border-radius: 0.5rem;
+}
+
+.user-dropdown .dropdown-item {
+  color: #CFCBD8;
+}
+
+.user-dropdown .dropdown-item:hover {
+  background-color: #3d2f5e;
+  color: white;
+}
+
+
+/* General Card Styling */
+.event-card {
+background-color: #2a1c4c;
+color: #e8e7ea;
+border-radius: 10px;
+transition: transform 0.3s, box-shadow 0.3s ease-in-out;
+}
+
+.event-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.event-card .card-body {
+padding: 1.5rem;
+}
+
+/* Event Action Buttons */
+.event-actions button {
+transition: background-color 0.2s ease;
+}
+
+.event-actions button:hover {
+background-color: rgba(127, 90, 240, 0.1);
+}
+
+/* Badge Styling */
+.event-card .badge {
+font-size: 0.9rem;
+padding: 5px 10px;
+border-radius: 20px;
+}
+
+/* Button Groups */
+.event-actions {
+display: flex;
+gap: 10px;
+align-items: center;
+justify-content: flex-start;
+}
+
+
+
+.custom-form-select {
+  background-color: #32234F;
+  color: #CFCBD8;
+  border-color: var(--ev-button);
+  border-radius: 8px;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+}
+
+.custom-form-select:hover {
+  background-color: #261D41;
+  color: #fff;
+  border-color: var(--ev-button);
+}
+
+.custom-form-select option:hover {
+  background-color: var(--ev-button);
+  color: #fff;
+}
+
+.custom-form-select:focus {
+  border-color: var(--ev-button);
+  box-shadow: 0 0 0 0.25rem rgba(127, 90, 240, 0.25);
+}
+
+.custom-form-label {
+    color: var(--ev-text);
+}
+
+/* Base styling for form controls (text inputs, selects, textareas) */
+.custom-form-control {
+  background-color: #32234F; /* Dark background */
+  color: #CFCBD8;             /* Text color */
+  border: 1px solid var(--ev-button); /* Border color */
+  border-radius: 8px;        /* Rounded corners */
+  padding: 10px 12px;        /* Padding inside input */
+  font-size: 1rem;           /* Font size */
+  width: 100%;               /* Make it full width */
+  transition: all 0.3s ease; /* Smooth transition */
+}
+
+/* Focus state for form controls */
+.custom-form-control:focus {
+  background-color: #261D41; /* Slightly lighter background on focus */
+  border-color: var(--ev-button);     /* Highlight border color */
+  color: #E8E7EA;            /* Light text color */
+  box-shadow: 0 0 5px rgba(127, 90, 240, 0.3); /* Subtle glow effect */
+  outline: none;             /* Remove the default outline */
+}
+
+/* Hover effect for form controls */
+.custom-form-control:hover {
+  border-color: var(--ev-button);  /* Keep the border highlighted on hover */
+  background-color: #2A1C4C; /* Slight hover effect */
+}
+
+/* Disabled state */
+.custom-form-control:disabled {
+  background-color: #444; /* Darker background */
+  color: #888;            /* Light gray text */
+  border: 1px solid #ccc; /* Lighter border */
+  cursor: not-allowed;    /* Change cursor to indicate it's disabled */
+}
+
+/* Placeholder Styling */
+.custom-form-control::placeholder {
+  color: #888; /* Lighter placeholder text */
+  opacity: 1;  /* Make sure placeholder text remains visible */
+}
+
+/* Error State (for example, in invalid fields) */
+.custom-form-control.error {
+  border-color: #FF4D6D; /* Red border on error */
+  background-color: #2A1C4C; /* Dark background on error */
+}
+
+/* Success State (for example, in valid fields) */
+.custom-form-control.success {
+  border-color: #2ECC71; /* Green border on success */
+  background-color: #2A1C4C; /* Dark background */
+}

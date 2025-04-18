@@ -12,6 +12,7 @@ import CardsGrid from '../../components/MyEventsPageComponents/CardsGrid';
 import allEv from '../../util/dEvAll.json';
 
 
+
 export default function MyEventsPage() {
 
   const [events, setEvents] = useState(allEv); // Stores events displayed 

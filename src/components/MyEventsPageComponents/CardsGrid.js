@@ -48,7 +48,7 @@ function CardsGrid({filteredEvents, handleDelete}) {
 
                     <Card.Footer>
                         <Button variant='danger' size="sm" onClick={() => handleDelete(event.id)}>
-                        {event.type === "upcoming" ? "Cancel" : "Remove"}
+                            {event.type === "upcoming" ? "Cancel" : "Remove"}
                         </Button>
 
                         <Button className='btn-app' size="sm" disabled={event.type === "upcoming"} onClick={() => handleOpenModal(event)}>

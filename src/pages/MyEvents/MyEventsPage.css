@@ -1,24 +1,4 @@
-:root {
-  /* Branding & UI */
-  --ev-logo: #5120E3; /* Ev-Logo */
-  --ev-button: #6F41D2;
 
-  /* Background layers */
-  --ev-background: #150733;            /* Ev-Background */
-  --ev-background-lighter: #160830;    /* Ev-Background-Lighter */
-  --ev-background-darker: #080411;     /* Ev-Background-Darker */
-
-  /* Foreground layers */
-  --ev-on-background: #261D41;         /* Ev-OnBackground */
-  --ev-on-background-lighter: #543D8E; /* Ev-OnBackground-Lighter */
-
-  /* Form & Inputs */
-  --ev-unfocused-element: #7D7585;     /* Ev-UnfocusedElement */
-
-  /* Texts & States */
-  --ev-text: #CFCBD8;                 /* Ev-Text */
-  --ev-enabled: #5120E3;              /* Ev-Enabled */
-}
 
 .my-events-page {
   background-color: var(--ev-background);
