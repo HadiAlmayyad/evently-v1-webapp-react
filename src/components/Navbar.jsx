@@ -11,7 +11,7 @@ function Navbar({ showLogout = true }) {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top px-4">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top px-4">
       <div className="container-fluid">
         {/* Logo */}
         <Link className="navbar-brand fw-bold" to="/" style={{ color: "#A259FF", fontSize: "24px" }}>

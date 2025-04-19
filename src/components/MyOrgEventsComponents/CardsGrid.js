@@ -27,7 +27,7 @@ function CardsGrid({filteredEvents, handleEdit, handleView}) {
 
                         <div className="d-flex justify-content-between align-items-center mt-2">
                             <span className="fw-bold" style={{ fontSize: "14px"}}>{event.venue}</span>
-                            <span className="fw-bold" style={{ fontSize: "14px"}}>{event.organiser}</span>
+                            <span className="fw-bold" style={{ fontSize: "14px"}}>{event.organizer}</span>
                         </div>
 
                     </Card.Body>

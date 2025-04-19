@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function FooterEv() {
   const [isHovered1, setIsHovered1] = useState(false); // Hover state for first icon
   const [isHovered2, setIsHovered2] = useState(false); // Hover state for second icon
+  const [isHovered3, setIsHovered3] = useState(false); // Hover state for third icon
 
   return (
     <footer id="footer" style={styles.footer}>
@@ -29,6 +30,18 @@ function FooterEv() {
             style={isHovered2 ? { ...styles.footerIcon, ...styles.footerIconHover } : styles.footerIcon}
             onMouseEnter={() => setIsHovered2(true)}
             onMouseLeave={() => setIsHovered2(false)}
+          >
+            <i className="fab fa-github"></i>
+          </a>
+          <a
+            href="https://github.com/HadiAlmayyad"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-icon"
+            title="GitHub - Hadi"
+            style={isHovered3 ? { ...styles.footerIcon, ...styles.footerIconHover } : styles.footerIcon}
+            onMouseEnter={() => setIsHovered3(true)}
+            onMouseLeave={() => setIsHovered3(false)}
           >
             <i className="fab fa-github"></i>
           </a>

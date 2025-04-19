@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Row, Col, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, Card, Row, Col, Badge } from 'react-bootstrap';
 import events from '../../util/dEvAll.json';
 import EventViewModal from './EventViewModal';
 
@@ -8,18 +8,18 @@ export default function EventsTabContent() {
   const [showModal, setShowModal] = useState(false); // Controls modal visibility
   const [selectedEvent, setSelectedEvent] = useState(null); // Stores the event to be displayed in the modal
 
-  const handleApprove = (id) => {
+  const handlePublish = (id) => {
     setEventList((prev) =>
       prev.map((event) =>
-        event.id === id ? { ...event, adminStatus: 'approved' } : event
+        event.id === id ? { ...event, adminStatus: 'pending' } : event
       )
     );
   };
 
-  const handleReject = (id) => {
+  const handleDraft = (id) => {
     setEventList((prev) =>
       prev.map((event) =>
-        event.id === id ? { ...event, adminStatus: 'rejected' } : event
+        event.id === id ? { ...event, adminStatus: 'draft' } : event
       )
     );
   };
@@ -40,6 +40,7 @@ export default function EventsTabContent() {
 
   return (
     <div className="events-tab-content">
+      <Row><Col><Button variant="primary" href="/event-manage/create">Create Event</Button></Col></Row>
       <Row className="g-3">
         {eventList.map((event) => (
           <Col xs={12} sm={12} md={6} lg={6} xl={4} key={event.id}>
@@ -61,6 +62,8 @@ export default function EventsTabContent() {
                       ? 'success'
                       : event.adminStatus === 'rejected'
                       ? 'danger'
+                      : event.adminStatus === 'draft'
+                      ? 'secondary'
                       : 'warning'
                   }
                 >
@@ -71,30 +74,29 @@ export default function EventsTabContent() {
                   <Button
                     variant="outline-success"
                     size="sm"
-                    onClick={() => handleApprove(event.id)}
-                    disabled={event.adminStatus === 'approved'}
+                    onClick={() => handlePublish(event.id)}
+                    disabled={event.adminStatus === 'pending' || event.adminStatus === 'approved'}
                   >
-                    {event.adminStatus === 'approved' ? 'Approved' : 'Approve'}
+                    {( event.adminStatus === 'pending' || event.adminStatus === 'approved' ) ? 'Published' : 'Publish'}
                   </Button>
 
                   <Button
                     variant="outline-danger"
                     size="sm"
                     className="ms-2"
-                    onClick={() => handleReject(event.id)}
-                    disabled={event.adminStatus === 'rejected'}
+                    onClick={() => handleRemove(event.id)}
                   >
-                    {event.adminStatus === 'rejected' ? 'Rejected' : 'Reject'}
+                    Remove
                   </Button>
 
                   <Button
                     variant="outline-secondary"
                     size="sm"
                     className="ms-2"
-                    onClick={() => handleRemove(event.id)}
-                    disabled={event.adminStatus === 'pending'}
+                    onClick={() => handleDraft(event.id)}
+                    disabled={event.adminStatus === 'draft'}
                   >
-                    Remove
+                    {event.adminStatus === 'draft' ? 'Drafted' : 'Draft'}
                   </Button>
 
                   <Button
@@ -106,6 +108,14 @@ export default function EventsTabContent() {
                     View
                   </Button>
                   
+                  <Button
+                    variant="outline-light"
+                    size="sm"
+                    className="ms-2"
+                    href={`/event-manage/${event.id}`}
+                  >
+                    Edit
+                  </Button>
                 </div>
               </Card.Body>
             </Card>
