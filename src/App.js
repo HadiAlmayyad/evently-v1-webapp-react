@@ -9,6 +9,7 @@ import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import OrganiserDashboard from "./pages/OrganiserDashboard/OrganiserDashboard";
 import './styles/ev-theme.css'
 import VenuesPage from "./pages/Venues/VenuesPage";
+import EventManagePage from "./pages/EventManage/EventManagePage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />} /> 
         <Route path="/venues" element={<VenuesPage />} />      
         <Route path="/organiser-dashboard" element={<OrganiserDashboard />} /> 
+        <Route path="/event-manage/create" element={<EventManagePage/>} />
       </Routes>
     </Router>
   )
