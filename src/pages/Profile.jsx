@@ -20,7 +20,7 @@ function Profile() {
   function getDefaultImage(role) {
     switch (role) {
       case "Admin": return adminImg;
-      case "Organizer": return femaleImg;
+      case "Organiser": return femaleImg;
       default: return maleImg;
     }
   }

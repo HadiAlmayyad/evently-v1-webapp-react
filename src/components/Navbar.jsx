@@ -11,7 +11,7 @@ function Navbar({ showLogout = true }) {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top px-4">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top px-4">
       <div className="container-fluid">
         {/* Logo */}
         <Link className="navbar-brand fw-bold" to="/" style={{ color: "#A259FF", fontSize: "24px" }}>
@@ -36,8 +36,8 @@ function Navbar({ showLogout = true }) {
         {/* Navbar Items */}
         <div className={showLogout ? "collapse navbar-collapse" : ""} id="mainNavbar">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {/* Shared for Attendee + Organizer */}
-            {(role === "Attendee" || role === "Organizer") && (
+            {/* Shared for Attendee + Organiser */}
+            {(role === "Attendee" || role === "Organiser") && (
               <>
                 <li className="nav-item">
                   <Link className="nav-link text-white" to="/profile">Profile</Link>

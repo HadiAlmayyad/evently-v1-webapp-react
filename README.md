@@ -12,7 +12,7 @@ Basil:
 
 Hadi:     
 -5) Create/Edit Event 
--6) Organizer Dashboard
+-6) Organiser Dashboard
 
 Kenan:  
 -7) My Events (Dpne)
