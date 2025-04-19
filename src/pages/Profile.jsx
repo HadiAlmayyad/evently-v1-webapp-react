@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import maleImg from "../assets/male.png";
 import femaleImg from "../assets/female.png";
 import adminImg from "../assets/admin.jpeg";
+import FooterEv from "../components/FooterEv";
 
 function Profile() {
   const navigate = useNavigate();
@@ -242,6 +243,8 @@ function Profile() {
           </div>
         </div>
       </div>
+
+      <FooterEv />
     </>
   );
 }

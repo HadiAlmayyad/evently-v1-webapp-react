@@ -8,7 +8,8 @@
       "organiser": "KFUPM Tech Club",
       "type": "past",
       "adminStatus": "approved",
-      "adminComment": ""
+      "adminComment": "",
+      "status": "Registered"
     },
     {
       "id": 2,
@@ -19,7 +20,8 @@
       "organiser": "AI Society",
       "type": "past",
       "adminStatus": "approved",
-      "adminComment": ""
+      "adminComment": "",
+      "status": "UnRegistered"
     },
     {
       "id": 3,
@@ -30,7 +32,9 @@
       "organiser": "Entrepreneurship Club",
       "type": "past",
       "adminStatus": "rejected",
-      "adminComment": "Comment"
+      "adminComment": "Comment",
+      "status": "UnRegistered"
+
     },
     {
       "id": 4,
@@ -41,7 +45,9 @@
       "organiser": "Math Society",
       "type": "past",
       "adminStatus": "rejected",
-      "adminComment": "Comment"
+      "adminComment": "Comment",
+      "status": "UnRegistered"
+
     },
     {
       "id": 5,
@@ -52,7 +58,9 @@
       "organiser": "Green Earth",
       "type": "upcoming",
       "adminStatus": "pending",
-      "adminComment": ""
+      "adminComment": "",
+      "status": "UnRegistered"
+
     },
     {
       "id": 6,
@@ -63,7 +71,9 @@
       "organiser": "Coding Club",
       "type": "upcoming",
       "adminStatus": "pending",
-      "adminComment": ""
+      "adminComment": "",
+      "status": "UnRegistered"
+
     },
     {
       "id": 7,
@@ -74,7 +84,9 @@
       "organiser": "Career Center",
       "type": "upcoming",
       "adminStatus": "pending",
-      "adminComment": ""
+      "adminComment": "",
+      "status": "UnRegistered"
+
     },
     {
       "id": 8,
@@ -85,7 +97,9 @@
       "organiser": "Student Council",
       "type": "upcoming",
       "adminStatus": "pending",
-      "adminComment": ""
+      "adminComment": "",
+      "status": "UnRegistered"
+
     },
     {
       "id": 9,
@@ -96,7 +110,9 @@
       "organiser": "Finance Club",
       "type": "upcoming",
       "adminStatus": "pending",
-      "adminComment": ""
+      "adminComment": "",
+      "status": "UnRegistered"
+
     },
     {
       "id": 10,
@@ -107,7 +123,9 @@
       "organiser": "Media Club",
       "type": "upcoming",
       "adminStatus": "pending",
-      "adminComment": ""
+      "adminComment": "",
+      "status": "UnRegistered"
+
     }
   ]
   

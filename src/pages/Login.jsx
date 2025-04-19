@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import FooterEv from "../components/FooterEv";
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
@@ -144,6 +145,8 @@ function Login() {
           </div>
         </div>
       </div>
+
+      <FooterEv />
     </>
   );
 }
