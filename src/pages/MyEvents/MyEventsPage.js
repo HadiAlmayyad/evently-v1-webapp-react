@@ -8,7 +8,7 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import FilterButtons from '../../components/MyEventsPageComponents/FliterButtons';
 import NavbarComponent from '../../components/MyEventsPageComponents/NavbarComponent';
 import CardsGrid from '../../components/MyEventsPageComponents/CardsGrid';
-
+import Navbar from '../../components/Navbar';
 import allEv from '../../util/dEvAll.json';
 
 
@@ -34,11 +34,12 @@ export default function MyEventsPage() {
 
 
   return (
-  <div className='my-events-page'>
+  <div className='my-events-page pt-5'>
             
   
     {/* Navbar */}
-    <NavbarComponent activePage='my-events' userRole='Attendee' />
+    {/* <NavbarComponent activePage='my-events' userRole='Attendee' /> */}
+    <Navbar showLogout={true} />
 
     <Container expand="md" className='mt-5'>
 

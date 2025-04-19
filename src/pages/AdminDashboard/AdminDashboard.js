@@ -5,6 +5,8 @@ import EventsTabContent from "../../components/AdminDashboardComponents/EventsTa
 import UsersTabContent from "../../components/AdminDashboardComponents/UsersTabContent";
 import ConfiguratoinTabContent from "../../components/AdminDashboardComponents/ConfigurationTabContent";
 import NavbarComponent from "../../components/AdminDashboardComponents/NavbarComponent";
+import Navbar from "../../components/Navbar";
+import FooterEv from "../../components/FooterEv";
 
 
 function AdminDashboard() { 
@@ -13,9 +15,10 @@ function AdminDashboard() {
 
         <div className="dashboard-page">
 
-            <NavbarComponent activePage="dashboard" userRole="Admin"/>  
-            
-            <Container expand="md" className='mt-5'>
+            {/* <NavbarComponent activePage="dashboard" userRole="Admin"/>   */}
+            <Navbar showLogout={true} />
+
+            <Container expand="md" className='pt-5 mt-5 mb-5'>
                 <Tabs
                     defaultActiveKey="events"
                     className="mb-3 ev-tabs"
@@ -32,7 +35,9 @@ function AdminDashboard() {
                     </Tab>
 
                 </Tabs>
+
             </Container>
+            <FooterEv />
 
         </div>
 

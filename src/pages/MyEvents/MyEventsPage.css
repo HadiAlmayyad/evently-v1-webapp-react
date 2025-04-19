@@ -1,10 +1,11 @@
 
-
+/* linear-gradient(to bottom, #4a057c, #000000); */
 .my-events-page {
-  background-color: var(--ev-background);
+  background: radial-gradient(circle, #000000, #4a057c);
   min-height: 100vh;
   padding-bottom: 50px;
 }
+
 
 .custom-toggle {
   border: 2px solid var(--ev-button) !important;
@@ -60,8 +61,11 @@
 }
 
 .Ev-OnBackground {
-  background-color: var(--ev-on-background);
-  color: var(--ev-text);
+  background-color: #1f1235;
+  border: 1px solid #2d1e50;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  color: white;
 }
 
 
@@ -104,3 +108,10 @@ border: none;
   color: #70787A;
 }
 
+.ev-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;  /* Max 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Optional: Adds ellipsis (...) at the end of truncated text */
+}

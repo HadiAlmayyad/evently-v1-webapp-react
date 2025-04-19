@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Card, Row, Col, ListGroup, Modal, Form, Container } from "react-bootstrap";
 import './VenuesPage.css';
 import NavbarComponent from "../../components/AdminDashboardComponents/NavbarComponent";
+import Navbar from "../../components/Navbar";
 
 function VenuesPage() {
 
@@ -51,7 +52,10 @@ function VenuesPage() {
   return (
     <div className="venues-page">
 
-        <NavbarComponent activePage="" userRole="Admin"/>  
+        {/* <NavbarComponent activePage="" userRole="Admin"/>  */}
+
+        <Navbar showLogout={true} />
+       
 
         <Container>
 

@@ -1,10 +1,18 @@
 
 
 .dashboard-page {
-background-color: var(--ev-background);
-min-height: 100vh;
-padding-bottom: 50px;
+  background-color: var(--ev-background);
+  background: radial-gradient(circle, #000000, #4a057c);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
+
+.dashboard-page .container {
+  flex-grow: 1;
+  /* Ensures the content section takes up the available space */
+}
+
 
   
 .btn-app { 
@@ -177,21 +185,32 @@ font-style: italic;
 }
 
 
-/* General Card Styling */
 .event-card {
-background-color: #2a1c4c;
-color: #e8e7ea;
-border-radius: 10px;
-transition: transform 0.3s, box-shadow 0.3s ease-in-out;
+  background-color: #1f1235;
+  border: 1px solid #2d1e50;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  color: white;
+
+  transition: all 0.3s ease-in-out;
+}
+
+
+.event-card .btn {
+  transition: background-color 0.3s ease;
+}
+
+.event-card .btn:hover {
+  background-color: rgba(127, 90, 240, 0.1);
 }
 
 .event-card:hover {
-transform: translateY(-5px);
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .event-card .card-body {
-padding: 1.5rem;
+  padding: 1.5rem;
 }
 
 /* Event Action Buttons */
@@ -200,7 +219,8 @@ transition: background-color 0.2s ease;
 }
 
 .event-actions button:hover {
-background-color: rgba(127, 90, 240, 0.1);
+  background-color: rgba(127, 90, 240, 0.1);
+  color: white;
 }
 
 /* Badge Styling */

@@ -43,7 +43,7 @@ function Navbar({ showLogout = true }) {
                   <Link className="nav-link text-white" to="/profile">Profile</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link text-white" to="/">My Events</Link>
+                  <Link className="nav-link text-white" to="/my-events">My Events</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link text-white" to="/">Discover Events</Link>
@@ -61,7 +61,7 @@ function Navbar({ showLogout = true }) {
                   <Link className="nav-link text-white" to="/">Discover Events</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link text-white" to="/dashboard">Dashboard</Link>
+                  <Link className="nav-link text-white" to="/admin-dashboard">Dashboard</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link text-white" to="/venues">Venues</Link>

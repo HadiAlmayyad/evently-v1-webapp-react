@@ -27,11 +27,11 @@ function CardsGrid({filteredEvents, handleDelete}) {
                 <Col sm={12} md={6} lg={4} key={event.id}>
                     
                     {/* Card Event */}
-                    <Card className='h-100 shadow Ev-OnBackground rounded-4'>
+                    <Card className='h-100 Ev-OnBackground rounded-4 p-1'>
                     <Card.Body>
                         <Card.Title>{event.title}</Card.Title>
                         
-                        <Card.Text>
+                        <Card.Text className="ev-description">
                         {event.description === "" ? ".........." : event.description}                
                         </Card.Text>
                         

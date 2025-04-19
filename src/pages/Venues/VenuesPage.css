@@ -1,22 +1,8 @@
 /* Venues Page Styling */
 .venues-page {
-    background-color: var(--ev-background);
+    background: radial-gradient(circle, #000000, #4a057c);
     min-height: 100vh;
     padding-bottom: 50px;
-  }
-  
-  .event-card {
-    background-color: #32234F;
-    border-radius: 10px;
-    color: #E8E7EA;
-  }
-  
-  .event-card .btn {
-    transition: background-color 0.3s ease;
-  }
-  
-  .event-card .btn:hover {
-    background-color: #7F5AF0;
   }
   
   /* Modal Styling */
@@ -28,9 +14,11 @@
 
   /* Venue Card Styling */
 .venue-card {
-    background-color: #32234F;
-    color: #E8E7EA;
-    border-radius: 10px;
+    background-color: #1f1235;
+    border: 1px solid #2d1e50;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    color: white;
     transition: all 0.3s ease-in-out;
   }
   
@@ -45,6 +33,7 @@
   
   .venue-card .btn:hover {
     background-color: rgba(127, 90, 240, 0.1);
+    color: white;
   }
   
   /* Badge Styling for Available/Unavailable */
