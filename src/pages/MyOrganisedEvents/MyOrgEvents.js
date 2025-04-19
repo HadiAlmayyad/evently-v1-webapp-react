@@ -85,7 +85,7 @@ export default function MyOrgEvents() {
 
 
   return (
-  <div className='my-events-page pt-5'>
+  <div className='my-events-page'>
             
   
     {/* Navbar */}
