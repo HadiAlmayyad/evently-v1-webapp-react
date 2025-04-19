@@ -8,6 +8,8 @@ import LandingPage from "./pages/LandingPage";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import './styles/ev-theme.css'
 import VenuesPage from "./pages/Venues/VenuesPage";
+import MyOrgEventsPage from "./pages/MyOrganisedEvents/MyOrgEvents";
+import DiscoverEvents from './pages/DiscoverEvents/DiscoverEvents'
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/my-events" element={<MyEventsPage />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} /> 
         <Route path="/venues" element={<VenuesPage />} />      
+        <Route path="/my-org-events" element={<MyOrgEventsPage />} />      
+        <Route path="/discover" element={<DiscoverEvents />} />   
       </Routes>
     </Router>
   )

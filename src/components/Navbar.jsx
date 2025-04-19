@@ -37,7 +37,7 @@ function Navbar({ showLogout = true }) {
         <div className={showLogout ? "collapse navbar-collapse" : ""} id="mainNavbar">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {/* Shared for Attendee + Organizer */}
-            {(role === "Attendee" || role === "Organizer") && (
+            {(role === "Attendee") && (
               <>
                 <li className="nav-item">
                   <Link className="nav-link text-white" to="/profile">Profile</Link>
@@ -46,7 +46,24 @@ function Navbar({ showLogout = true }) {
                   <Link className="nav-link text-white" to="/my-events">My Events</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link text-white" to="/">Discover Events</Link>
+                  <Link className="nav-link text-white" to="/discover">Discover Events</Link>
+                </li>
+              </>
+            )}
+
+            {(role === "Organizer") && (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link text-white" to="/profile">Profile</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link text-white" to="/my-events">My Events</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link text-white" to="/my-org-events">Organised Events</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link text-white" to="/discover">Discover Events</Link>
                 </li>
               </>
             )}
@@ -58,7 +75,7 @@ function Navbar({ showLogout = true }) {
                   <Link className="nav-link text-white" to="/profile">Profile</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link text-white" to="/">Discover Events</Link>
+                  <Link className="nav-link text-white" to="/discover">Discover Events</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link text-white" to="/admin-dashboard">Dashboard</Link>
