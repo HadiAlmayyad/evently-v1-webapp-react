@@ -8,7 +8,7 @@ function App() {
    <Router>
     <Routes>
       <Route path="/" element={<MyEventsPage />} />
-      <Route path="/event-manage" element={<EventManagePage/>} />
+      <Route path="/event-manage/create" element={<EventManagePage/>} />
     </Routes>
    </Router>
   );

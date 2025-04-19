@@ -1,7 +1,8 @@
 import "./EventManagePage.css";
 import React, { useState } from "react";
 import { Button, Col, Container, FloatingLabel, Form, Modal, Placeholder, Row } from "react-bootstrap";
-import NavbarComponent from "../../components/MyEventsPageComponents/NavbarComponent";
+import Navbar from "../../components/Navbar";
+import FooterEv from "../../components/FooterEv";
 
 function EventManagePage()
 {
@@ -20,7 +21,7 @@ function EventManagePage()
 
 	return (
 		<div>
-			<NavbarComponent/>
+			<Navbar showLogout={true}/>
 			<Container fluid="md">
 				<Form>
 					<h1>Create an Event</h1>
@@ -51,25 +52,20 @@ function EventManagePage()
 					<br/>
 					<Row>
 						<Form.Group>
-							<Form.Label>Location</Form.Label>
+							<Form.Label>Venue</Form.Label>
 							<Form.Select required>
-								<option>Select location</option>
+								<option>Select Venue</option>
 							</Form.Select>
 							<Form.Text>Where will the event be held?</Form.Text>
 						</Form.Group>
 					</Row>
 					<br/>
 					<Row>
-						<Col><Form.Group>
-							<Form.Label required>Date</Form.Label>
-							<Form.Control type="date" required/>
-							<Form.Text>What day is the event taking place?</Form.Text>
-						</Form.Group></Col>
-						<Col><Form.Group>
-							<Form.Label required>Time</Form.Label>
-							<Form.Control type="time" required/>
-							<Form.Text>What time is the event taking place?</Form.Text>
-						</Form.Group></Col>
+						<Form.Group>
+							<Form.Label required>Date & Time</Form.Label>
+							<Form.Control type="datetime-local" required/>
+							<Form.Text>When will the event take place?</Form.Text>
+						</Form.Group>
 					</Row>
 					<br/>
 					<Row>
@@ -113,6 +109,7 @@ function EventManagePage()
 					</Modal.Footer>
 				</Modal>
 			</Container>
+			<FooterEv/>
 		</div>
 	);
 }
