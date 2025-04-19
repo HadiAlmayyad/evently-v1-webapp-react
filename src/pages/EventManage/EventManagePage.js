@@ -70,7 +70,7 @@ function EventManagePage()
 					<br/>
 					<Row>
 						<Form.Group>
-							<FloatingLabel label="Organiser">
+							<FloatingLabel label="Organizer">
 								<Form.Control/>
 							</FloatingLabel>
 							<Form.Text>Who is organising the event?</Form.Text>

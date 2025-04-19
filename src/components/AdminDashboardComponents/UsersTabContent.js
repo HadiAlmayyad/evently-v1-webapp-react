@@ -55,7 +55,7 @@ export default function UsersTabContent() {
               <div><strong>Major:</strong> {user.major}</div>
               <div>
                 <strong>Role:</strong>{" "}
-                <Badge bg={user.role === "Organiser" ? "primary" : "secondary"}>
+                <Badge bg={user.role === "Organizer" ? "primary" : "secondary"}>
                   {user.role}
                 </Badge>
               </div>

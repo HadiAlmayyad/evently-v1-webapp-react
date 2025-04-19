@@ -44,7 +44,7 @@ function UserInfo(user) {
         <p><strong>Student ID:</strong> {user.stuId}</p>
         <p><strong>Major:</strong> {user.major}</p>
         <p><strong>Gender:</strong> {user.gender}</p>
-        <Badge bg={user.role === "Organiser" ? "primary" : "secondary"} className="me-2">
+        <Badge bg={user.role === "Organizer" ? "primary" : "secondary"} className="me-2">
           {user.role}
         </Badge>
         <Badge

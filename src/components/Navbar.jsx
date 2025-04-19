@@ -36,7 +36,7 @@ function Navbar({ showLogout = true }) {
         {/* Navbar Items */}
         <div className={showLogout ? "collapse navbar-collapse" : ""} id="mainNavbar">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {/* Shared for Attendee + Organiser */}
+            {/* Shared for Attendee + Organizer */}
             {(role === "Attendee") && (
               <>
                 <li className="nav-item">
@@ -51,7 +51,7 @@ function Navbar({ showLogout = true }) {
               </>
             )}
 
-            {(role === "Organiser") && (
+            {(role === "Organizer") && (
               <>
                 <li className="nav-item">
                   <Link className="nav-link text-white" to="/profile">Profile</Link>

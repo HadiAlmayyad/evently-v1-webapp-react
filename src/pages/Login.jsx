@@ -20,10 +20,10 @@ function Login() {
       gender: "Male",
     },
     {
-      fullName: "Sarah Organiser",
+      fullName: "Sarah Organizer",
       email: "sarah@org.com",
       password: "123456",
-      role: "Organiser",
+      role: "Organizer",
       id: "202045678",
       major: "Event Management",
       gender: "Female",

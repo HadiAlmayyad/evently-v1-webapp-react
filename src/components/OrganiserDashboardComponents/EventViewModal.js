@@ -37,8 +37,8 @@ function EventViewModal({ show, onHide, event }) {
         </Row>
 
         <Row className="mb-3">
-          <Col xs={6}><strong>Organiser:</strong></Col>
-          <Col xs={6}>{event.organiser}</Col>
+          <Col xs={6}><strong>Organizer:</strong></Col>
+          <Col xs={6}>{event.organizer}</Col>
         </Row>
 
         <Row className="mb-3">

@@ -193,7 +193,7 @@ function LandingPage() {
               <h4 className="fw-bold mb-3">See All Campus Events</h4>
               <p className="text-white-50">
                 You can see the events in KFUPM and explore what’s happening across campus.
-                Filter by category, time, or organiser and stay updated.
+                Filter by category, time, or organizer and stay updated.
               </p>
             </div>
           </div>
@@ -213,7 +213,7 @@ function LandingPage() {
             <div className="col-md-6 text-white pe-md-5 mt-4 mt-md-0">
               <h4 className="fw-bold mb-3">Rate Events After Attending</h4>
               <p className="text-white-50">
-                You can rate events after attending them and share your feedback with organisers
+                You can rate events after attending them and share your feedback with organizers
                 to help improve future experiences.
               </p>
             </div>
