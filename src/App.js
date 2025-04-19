@@ -26,7 +26,7 @@ function App() {
         <Route path="/my-org-events" element={<MyOrgEventsPage />} />      
         <Route path="/discover" element={<DiscoverEvents />} />   
         <Route path="/organizer-dashboard" element={<OrganizerDashboard />} /> 
-        <Route path="/event-manage/create" element={<EventManagePage/>} />>>>>>>> main
+        <Route path="/event-manage/create" element={<EventManagePage/>} />
       </Routes>
     </Router>
   )
