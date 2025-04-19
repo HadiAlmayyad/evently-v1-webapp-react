@@ -22,7 +22,7 @@ function EventManagePage()
 	return (
 		<div>
 			<Navbar showLogout={true}/>
-			<Container fluid="md">
+			<Container fluid="md" data-bs-theme="dark">
 				<Form>
 					<h1>Create an Event</h1>
 					<br/>

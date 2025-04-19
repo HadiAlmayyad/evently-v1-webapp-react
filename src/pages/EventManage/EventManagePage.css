@@ -1,4 +1,6 @@
 body
 {
 	background-color: var( --ev-background );
+	background: radial-gradient(circle, #000000, #4a057c);
+	color: var( --ev-text );
 }
