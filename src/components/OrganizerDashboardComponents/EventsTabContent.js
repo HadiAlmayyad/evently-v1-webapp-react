@@ -40,7 +40,7 @@ export default function EventsTabContent() {
 
   return (
     <div className="events-tab-content">
-      <Row><Col><Button variant="primary" href="/event-manage/create">Create Event</Button></Col></Row>
+      <Row><Col><Button variant="primary" href="/create-event">Create Event</Button></Col></Row>
       <Row className="g-3">
         {eventList.map((event) => (
           <Col xs={12} sm={12} md={6} lg={6} xl={4} key={event.id}>

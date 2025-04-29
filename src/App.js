@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import MyEventsPage from "./pages/MyEvents/MyEventsPage";
 import Login from "./pages/Login";      
@@ -26,7 +26,8 @@ function App() {
         <Route path="/my-org-events" element={<MyOrgEventsPage />} />      
         <Route path="/discover" element={<DiscoverEvents />} />   
         <Route path="/organizer-dashboard" element={<OrganizerDashboard />} /> 
-        <Route path="/event-manage/create" element={<EventManagePage/>} />
+        <Route path="/create-event" element={<EventManagePage/>} />
+        <Route path="/event-manage" element={<Navigate to="/organizer-dashboard"/>} />
       </Routes>
     </Router>
   )
