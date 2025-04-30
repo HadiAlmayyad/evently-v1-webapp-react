@@ -19,6 +19,9 @@ function EventManagePage()
 		setShowPreview( false )
 	};
 
+	var minimumDate = new Date();
+	minimumDate.setDate( minimumDate.getDate() + 1 ); // Set the minimum date to the day after the current date
+
 	return (
 		<div>
 			<Navbar showLogout={true}/>
@@ -29,7 +32,7 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<FloatingLabel label="Title">
-								<Form.Control required/>
+								<Form.Control name="title" required/>
 							</FloatingLabel>
 						</Form.Group>
 					</Row>
@@ -37,7 +40,7 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<Form.Label>Thumbnail</Form.Label>
-							<Form.Control type="file"/>
+							<Form.Control name="thumbnail" type="file"/>
 							<Form.Text>Upload an image</Form.Text>
 						</Form.Group>
 					</Row>
@@ -45,7 +48,7 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<FloatingLabel label="Description">
-								<Form.Control as="textarea"/>
+								<Form.Control name="description" as="textarea"/>
 							</FloatingLabel>
 						</Form.Group>
 					</Row>
@@ -53,7 +56,7 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<Form.Label>Venue</Form.Label>
-							<Form.Select required>
+							<Form.Select name="venue" required>
 								<option>Select Venue</option>
 							</Form.Select>
 							<Form.Text>Where will the event be held?</Form.Text>
@@ -63,7 +66,7 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<Form.Label required>Date & Time</Form.Label>
-							<Form.Control type="datetime-local" required/>
+							<Form.Control name="datetime" type="datetime-local" min={`${minimumDate.toISOString().split( "T" )[0]}T00:00`} step={300} required/>
 							<Form.Text>When will the event take place?</Form.Text>
 						</Form.Group>
 					</Row>
@@ -71,7 +74,7 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<FloatingLabel label="Organizer">
-								<Form.Control/>
+								<Form.Control name="organizer"/>
 							</FloatingLabel>
 							<Form.Text>Who is organising the event?</Form.Text>
 						</Form.Group>
@@ -79,7 +82,7 @@ function EventManagePage()
 					<br/>
 					<Row>
 						<Form.Group>
-							<Form.Check type="checkbox" label="Registration required" onChange={ ( event ) => setRegistrationMethodEnabled( event.target.checked )}/>
+							<Form.Check name="registration-required" type="checkbox" label="Registration required" onChange={ ( event ) => setRegistrationMethodEnabled( event.target.checked )}/>
 							<Form.Text>Are attendees required to register to attend the event?</Form.Text>
 						</Form.Group>
 					</Row>
@@ -87,7 +90,7 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<FloatingLabel label="Method of registration">
-								<Form.Control as="textarea" required disabled={!registrationMethodEnabled}/>
+								<Form.Control name="registration-method" as="textarea" required disabled={!registrationMethodEnabled}/>
 							</FloatingLabel>
 							<Form.Text>How will the attendees register to attend the event?</Form.Text>
 						</Form.Group>
