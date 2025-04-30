@@ -30,16 +30,6 @@ export default function MyOrgEvents() {
     else setFilter('past');
   };
 
-
-  // Save the new event to the state
-  const handleSaveNewEvent = (newEvent) => {
-
-    // Assign a unique ID and initial status (e.g., "pending")
-
-    const eventWithId = { ...newEvent, id: Date.now(), status: 'pending' };
-    setEvents((prevEvents) => [...prevEvents, eventWithId]);
-  };
-
   const handleView = (event) => {
     setSelectedEvent(event);
     setShowViewModal(true); // Show the modal when the "View" button is clicked
