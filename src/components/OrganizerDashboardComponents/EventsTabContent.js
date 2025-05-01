@@ -16,14 +16,6 @@ export default function EventsTabContent() {
     );
   };
 
-  const handleDraft = (id) => {
-    setEventList((prev) =>
-      prev.map((event) =>
-        event.id === id ? { ...event, adminStatus: 'draft' } : event
-      )
-    );
-  };
-
   const handleRemove = (id) => {
     setEventList((prev) => prev.filter((event) => event.id !== id));
   };
@@ -87,16 +79,6 @@ export default function EventsTabContent() {
                     onClick={() => handleRemove(event.id)}
                   >
                     Remove
-                  </Button>
-
-                  <Button
-                    variant="outline-secondary"
-                    size="sm"
-                    className="ms-2"
-                    onClick={() => handleDraft(event.id)}
-                    disabled={event.adminStatus === 'draft'}
-                  >
-                    {event.adminStatus === 'draft' ? 'Drafted' : 'Draft'}
                   </Button>
 
                   <Button
