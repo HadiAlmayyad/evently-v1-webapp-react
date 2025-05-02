@@ -70,7 +70,7 @@ export default function MyEventsPage() {
 
   // Filter registered Events for the user, then filter by time
   // Step 1: Get registered event IDs
-  const registeredEventIds = user?.registeredEvents.map(e => String(e.eventId)) || [];
+  const registeredEventIds = user?.registeredEvents.map(e => String(e.eventId?._id || e.eventId)) || [];
 
   // Step 2: Filter events that are registered
   const registeredEventsOnly = events.filter(event =>
