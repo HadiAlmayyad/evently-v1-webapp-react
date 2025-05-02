@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const eventRoutes = require('./routes/eventRoutes');
+const userRoutes = require('./routes/userRoutes');
+const venueRoutes = require('./routes/venueRoutes');
 
 dotenv.config();
 
@@ -9,6 +12,11 @@ const app = express();
 app.use(bodyParser.json());  // Parse JSON bodies
 
 const PORT = process.env.PORT || 5000;
+
+app.use('/api/events', eventRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/venues', venueRoutes);
+
 
 // MongoDB Connection
 mongoose.connect(process.env.DB_URL, {
