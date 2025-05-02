@@ -1,3 +1,4 @@
+// src/pages/Login.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -15,8 +16,8 @@ function Login() {
     e.preventDefault();
 
     const url = isLogin
-      ? "https://4d864026-a70c-4b07-a907-a5478eb2508d-00-2tw4ny0pe8scp.sisko.replit.dev/api/login"
-      : "https://4d864026-a70c-4b07-a907-a5478eb2508d-00-2tw4ny0pe8scp.sisko.replit.dev/api/signup";
+      ? "http://localhost:5000/api/login"
+      : "http://localhost:5000/api/signup";
 
     try {
       const res = await fetch(url, {
@@ -43,9 +44,7 @@ function Login() {
       <Navbar showLogout={false} />
       <div
         className="d-flex justify-content-center align-items-center vh-100 px-3"
-        style={{
-          background: "linear-gradient(to bottom, #4b0082, #000000)",
-        }}
+        style={{ background: "linear-gradient(to bottom, #4b0082, #000000)" }}
       >
         <div
           className="p-5 text-white w-100"
