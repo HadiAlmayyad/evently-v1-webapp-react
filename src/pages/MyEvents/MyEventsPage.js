@@ -21,33 +21,33 @@ export default function MyEventsPage() {
   const [userLoading, setUserLoading] = useState(true);
   const [filter, setFilter] = useState("all");
 
-// Fetch events
-useEffect(() => {
-  fetch("http://localhost:5000/api/events")
-    .then((res) => res.json())
-    .then((data) => {
-      setEvents(data);
-      setEventsLoading(false);
-    })
-    .catch((err) => {
-      console.error("Error fetching events:", err);
-      setEventsLoading(false);
-    });
-}, []);
+  // Fetch events
+  useEffect(() => {
+    fetch("http://localhost:5000/api/events")
+      .then((res) => res.json())
+      .then((data) => {
+        setEvents(data);
+        setEventsLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching events:", err);
+        setEventsLoading(false);
+      });
+  }, []);
 
-// Fetch user
-useEffect(() => {
-  fetch("http://localhost:5000/api/users/68142fa8ea61f232732c762b")
-    .then((res) => res.json())
-    .then((data) => {
-      setUser(data);
-      setUserLoading(false);
-    })
-    .catch((err) => {
-      console.error("Error fetching user:", err);
-      setUserLoading(false);
-    });
-}, []);
+  // Fetch user
+  useEffect(() => {
+    fetch("http://localhost:5000/api/users/68142fa8ea61f232732c762b")
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data);
+        setUserLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching user:", err);
+        setUserLoading(false);
+      });
+  }, []);
 
   // Handles Toggle Buttons (All, Upcoming, Past)
   const handleChange = (val) => {
@@ -68,7 +68,19 @@ useEffect(() => {
       .catch(err => console.error('Delete error:', err));
   };
 
-  const filteredEvents = events.filter(event => {
+  // Filter registered Events for the user, then filter by time
+  // Step 1: Get registered event IDs
+  const registeredEventIds = user?.registeredEvents.map(e => String(e.eventId)) || [];
+
+  // Step 2: Filter events that are registered
+  const registeredEventsOnly = events.filter(event =>
+    registeredEventIds.includes(String(event._id))
+  );
+
+  console.log(registeredEventsOnly)
+
+
+  const filteredEvents = registeredEventsOnly.filter(event => {
     const now = new Date();
     const eventDate = new Date(event.date);
     if (filter === 'upcoming') return eventDate > now;
@@ -80,7 +92,6 @@ useEffect(() => {
 
 
   return (
-
   <div className='my-events-page'>
 
     {/* Navbar */}

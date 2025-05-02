@@ -2,14 +2,14 @@ import React from "react";
 import { useState } from "react";
 import {Row, Col, Card, Button} from 'react-bootstrap';
 
-export default function CardsGridDiscover({filteredEvents, handleRegister, handleView}) { 
+export default function CardsGridDiscover({filteredEvents, handleRegister, handleView, user}) { 
 
     return (
 
         <Row sm={1} md={2} lg={3} className='mt-2 g-3'>
 
             {filteredEvents.map((event) => (
-            
+                
                 <Col sm={12} md={6} lg={4} key={event.id}>
                     
                     {/* Card Event */}
@@ -22,22 +22,29 @@ export default function CardsGridDiscover({filteredEvents, handleRegister, handl
                         </Card.Text>
                         
                         <Card.Text style={{fontSize: "14px", fontWeight: "bold"}}>
-                        {event.datetime}
+                            {new Date(event.date).toISOString().split('T')[0]}
+                            <br />
+                            {new Date(event.date).toTimeString().split(' ')[0].slice(0, 5)}
                         </Card.Text>
 
                         <div className="d-flex justify-content-between align-items-center mt-2">
                             <span className="fw-bold" style={{ fontSize: "14px"}}>{event.venue}</span>
-                            <span className="fw-bold" style={{ fontSize: "14px"}}>{event.organizer}</span>
+                            <span className="fw-bold" style={{ fontSize: "14px"}}>{event.organiser}</span>
                         </div>
 
                     </Card.Body>
 
                     <Card.Footer>
+
                         <Button variant='success' size="sm" 
-                            disabled={event.status === "Registered"} // Disable button if already registered
+                            // Disable button if already registered
+                            disabled={user?.registeredEvents.some(e => String(e.eventId?._id) === String(event._id))} 
                             onClick={() => handleRegister(event)}
                         >
-                            {event.status === "Registered" ? "Registered" : "Register"}
+                            {user?.registeredEvents.some(e => 
+                                String(e.eventId?._id) === String(event._id)) ? 
+                                "Registered" : 
+                                "Register"}
                         </Button>
 
                         <Button className='btn-app' size="sm" onClick={() => handleView(event)}>
