@@ -19,6 +19,37 @@ function EventManagePage()
 		setShowPreview( false )
 	};
 
+	const onEventSubmit = function( event )
+	{
+		event.preventDefault();
+		const form = event.target;
+		const formData = new FormData( form );
+
+		fetch( "http://localhost:8000/api/events",
+		{
+			method: "POST",
+			body:
+			{
+				title: formData.get( "title" ),
+				thumbnail: formData.get( "thumbnail" ),
+				description: formData.get( "description" ),
+				venue: formData.get( "venue" ),
+				datetime: formData.get( "datetime" ),
+				organizer: formData.get( "organizer" ),
+				registrationRequired: formData.get( "registrationRequired" ),
+				registrationMethod: formData.get( "registrationMethod" ),
+			},
+		})
+		.then( function( response )
+		{
+			alert( "Event submitted ssucessfully!" );
+		})
+		.catch( function( error )
+		{
+			alert( "There was an error submitting the event: ", error );
+		});
+	};
+
 	var minimumDate = new Date();
 	minimumDate.setDate( minimumDate.getDate() + 1 ); // Set the minimum date to the day after the current date
 
@@ -26,7 +57,7 @@ function EventManagePage()
 		<div>
 			<Navbar showLogout={true}/>
 			<Container fluid="md" data-bs-theme="dark">
-				<Form action="http://localhost:8000/api/events" method="post">
+				<Form className="eventManageForm" onSubmit={onEventSubmit}>
 					<h1>Create an Event</h1>
 					<br/>
 					<Row>
@@ -37,14 +68,14 @@ function EventManagePage()
 						</Form.Group>
 					</Row>
 					<br/>
-					{/* <Row>
+					<Row>
 						<Form.Group>
 							<Form.Label>Thumbnail</Form.Label>
 							<Form.Control name="thumbnail" type="file"/>
 							<Form.Text>Upload an image</Form.Text>
 						</Form.Group>
 					</Row>
-					<br/> */}
+					<br/>
 					<Row>
 						<Form.Group>
 							<FloatingLabel label="Description">
