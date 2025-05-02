@@ -5,13 +5,12 @@ const eventSchema = new mongoose.Schema({
   description: { type: String, required: true },
 
   date: { type: Date, required: true },  // e.g., 2025-04-15
-  time: { type: String, required: true }, // e.g., "09:00 AM"
 
   // New: category field
   category: { type: String, required: true }, // e.g., "Tech", "Music", etc.
 
   venue: { type: String, required: true },
-  organizer: { type: String, required: true },
+  organiser: { type: String, required: true },
 
   registrationRequired: String,
   registrationMethod: String,

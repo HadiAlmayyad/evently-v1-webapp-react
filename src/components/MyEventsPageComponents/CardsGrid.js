@@ -3,7 +3,7 @@ import { useState } from "react";
 import {Row, Col, Card, Button} from 'react-bootstrap';
 import RateForm from "./RateForm";
 
-function CardsGrid({filteredEvents, handleDelete}) { 
+function CardsGrid({filteredEvents, onDelete, user}) { 
 
     const [selectedEvent, setSelectedEvent] = useState(null); // holds data for modal
     const [showModal, setShowModal] = useState(false);
@@ -36,18 +36,20 @@ function CardsGrid({filteredEvents, handleDelete}) {
                         </Card.Text>
                         
                         <Card.Text style={{fontSize: "14px", fontWeight: "bold"}}>
-                        {event.datetime}
+                            {new Date(event.date).toISOString().split('T')[0]}
+                            <br />
+                            {new Date(event.date).toTimeString().split(' ')[0].slice(0, 5)}
                         </Card.Text>
 
                         <div className="d-flex justify-content-between align-items-center mt-2">
                             <span className="fw-bold" style={{ fontSize: "14px"}}>{event.venue}</span>
-                            <span className="fw-bold" style={{ fontSize: "14px"}}>{event.organizer}</span>
+                            <span className="fw-bold" style={{ fontSize: "14px"}}>{event.organiser}</span>
                         </div>
 
                     </Card.Body>
 
                     <Card.Footer>
-                        <Button variant='danger' size="sm" onClick={() => handleDelete(event.id)}>
+                        <Button variant='danger' size="sm" onClick={() => onDelete(event._id)}>
                             {event.type === "upcoming" ? "Cancel" : "Remove"}
                         </Button>
 
@@ -66,6 +68,7 @@ function CardsGrid({filteredEvents, handleDelete}) {
                 show={showModal}
                 onHide={handleCloseModal}
                 event={selectedEvent} 
+                user = {user}
             />
         </Row>
 

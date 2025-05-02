@@ -1,6 +1,6 @@
 import './MyEventsPage.css';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import { Button, Modal, Form } from 'react-bootstrap';
@@ -15,8 +15,39 @@ import allEv from '../../util/dEvAll.json';
 
 export default function MyEventsPage() {
 
-  const [events, setEvents] = useState(allEv); // Stores events displayed 
-  const [filter, setFilter] = useState('all'); // Stroes the type of events displayed 
+  const [events, setEvents] = useState([]);
+  const [user, setUser] = useState();
+  const [eventsLoading, setEventsLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(true);
+  const [filter, setFilter] = useState("all");
+
+// Fetch events
+useEffect(() => {
+  fetch("http://localhost:5000/api/events")
+    .then((res) => res.json())
+    .then((data) => {
+      setEvents(data);
+      setEventsLoading(false);
+    })
+    .catch((err) => {
+      console.error("Error fetching events:", err);
+      setEventsLoading(false);
+    });
+}, []);
+
+// Fetch user
+useEffect(() => {
+  fetch("http://localhost:5000/api/users/68142fa8ea61f232732c762b")
+    .then((res) => res.json())
+    .then((data) => {
+      setUser(data);
+      setUserLoading(false);
+    })
+    .catch((err) => {
+      console.error("Error fetching user:", err);
+      setUserLoading(false);
+    });
+}, []);
 
   // Handles Toggle Buttons (All, Upcoming, Past)
   const handleChange = (val) => {
@@ -26,17 +57,32 @@ export default function MyEventsPage() {
   };
 
   // Used by CardsGrid to delete/cancel Events
-  const handleDelete = (id) => {
-    setEvents((prev) => prev.filter((e) => e.id !== id));
+  const handleDelete = (eventId) => {
+    fetch(`http://localhost:5000/api/events/${eventId}`, {
+      method: 'DELETE',
+    })
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to delete event');
+        setEvents(prev => prev.filter(ev => ev._id !== eventId));
+      })
+      .catch(err => console.error('Delete error:', err));
   };
 
-  const filteredEvents = filter === 'all' ? events : events.filter((e) => e.type === filter);
+  const filteredEvents = events.filter(event => {
+    const now = new Date();
+    const eventDate = new Date(event.date);
+    if (filter === 'upcoming') return eventDate > now;
+    if (filter === 'past') return eventDate < now;
+    return true;
+  });
+
+  if (eventsLoading || userLoading) return <div>Loading...</div>;
 
 
   return (
+
   <div className='my-events-page'>
-            
-  
+
     {/* Navbar */}
     {/* <NavbarComponent activePage='my-events' userRole='Attendee' /> */}
     <Navbar showLogout={true} />
@@ -53,7 +99,8 @@ export default function MyEventsPage() {
     {/* The Grid contains RateForm Comp.*/}
         <CardsGrid 
         filteredEvents={filteredEvents} 
-        handleDelete={handleDelete} 
+        onDelete={handleDelete} 
+        user = {user}
         />
 
     </Container>
