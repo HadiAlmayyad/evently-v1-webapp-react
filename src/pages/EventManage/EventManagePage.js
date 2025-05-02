@@ -8,6 +8,7 @@ function EventManagePage()
 {
 	const [ showPreview, setShowPreview ] = useState( false );
 	const [ registrationMethodEnabled, setRegistrationMethodEnabled ] = useState( false );
+	const eventlyEventsAPI = "http://localhost:8000/api/events";
 
 	const openPreview = function()
 	{
@@ -19,34 +20,46 @@ function EventManagePage()
 		setShowPreview( false )
 	};
 
-	const onEventSubmit = function( event )
+	const onEventSubmit = async function( event )
 	{
 		event.preventDefault();
 		const form = event.target;
 		const formData = new FormData( form );
+		const response = await fetch( eventlyEventsAPI );
+		const eventlyEvents = await response.json();
 
-		fetch( "http://localhost:8000/api/events",
+		fetch( eventlyEventsAPI,
 		{
 			method: "POST",
-			body:
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(
 			{
+				id: eventlyEvents.length,
 				title: formData.get( "title" ),
-				thumbnail: formData.get( "thumbnail" ),
+				thumbnail: null, //formData.get( "thumbnail" ),
 				description: formData.get( "description" ),
+				category: formData.get( "category" ),
 				venue: formData.get( "venue" ),
 				datetime: formData.get( "datetime" ),
-				organizer: formData.get( "organizer" ),
 				registrationRequired: formData.get( "registrationRequired" ),
 				registrationMethod: formData.get( "registrationMethod" ),
-			},
+				organizer: JSON.parse( localStorage.getItem("user") )["fullName"],
+			}),
 		})
 		.then( function( response )
 		{
-			alert( "Event submitted ssucessfully!" );
+			if ( response.status === 201 )
+			{
+				alert( "Event submitted sucessfully!" );
+			}
+			else
+			{
+				alert( "There was an error submitting the event." );
+			}
 		})
 		.catch( function( error )
 		{
-			alert( "There was an error submitting the event: ", error );
+			alert( "There was an error connecting to the server." );
 		});
 	};
 
@@ -86,6 +99,16 @@ function EventManagePage()
 					<br/>
 					<Row>
 						<Form.Group>
+							<Form.Label>Category</Form.Label>
+							<Form.Select name="category" required>
+								<option>Select Category</option>
+							</Form.Select>
+							<Form.Text>What category does the event fall under?</Form.Text>
+						</Form.Group>
+					</Row>
+					<br/>
+					<Row>
+						<Form.Group>
 							<Form.Label>Venue</Form.Label>
 							<Form.Select name="venue" required>
 								<option>Select Venue</option>
@@ -99,15 +122,6 @@ function EventManagePage()
 							<Form.Label required>Date & Time</Form.Label>
 							<Form.Control name="datetime" type="datetime-local" min={`${minimumDate.toISOString().split( "T" )[0]}T00:00`} step={300} required/>
 							<Form.Text>When will the event take place?</Form.Text>
-						</Form.Group>
-					</Row>
-					<br/>
-					<Row>
-						<Form.Group>
-							<FloatingLabel label="Organizer">
-								<Form.Control name="organizer"/>
-							</FloatingLabel>
-							<Form.Text>Who is organising the event?</Form.Text>
 						</Form.Group>
 					</Row>
 					<br/>
