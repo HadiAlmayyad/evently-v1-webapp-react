@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Navbar from "../components/Navbar";
 import FooterEv from "../components/FooterEv";
 
@@ -8,8 +7,6 @@ function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [role, setRole] = useState("Attendee");
   const navigate = useNavigate();
 
   const toggleForm = () => setIsLogin(!isLogin);
@@ -17,23 +14,27 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const payload = isLogin
-      ? { email, password }
-      : { fullName, email, password, role };
-
-    const endpoint = isLogin ? "/api/auth/login" : "/api/auth/signup";
+    const url = isLogin
+      ? "https://4d864026-a70c-4b07-a907-a5478eb2508d-00-2tw4ny0pe8scp.sisko.replit.dev/api/login"
+      : "https://4d864026-a70c-4b07-a907-a5478eb2508d-00-2tw4ny0pe8scp.sisko.replit.dev/api/signup";
 
     try {
-      const response = await axios.post(endpoint, payload);
-      const { user, token } = response.data;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("token", token);
+      const data = await res.json();
 
+      if (!res.ok) {
+        throw new Error(data.message || "Authentication failed");
+      }
+
+      localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/profile");
     } catch (err) {
-      const msg = err.response?.data?.message || "Server error.";
-      alert(msg);
+      alert(err.message || "Server error.");
     }
   };
 
@@ -42,7 +43,9 @@ function Login() {
       <Navbar showLogout={false} />
       <div
         className="d-flex justify-content-center align-items-center vh-100 px-3"
-        style={{ background: "linear-gradient(to bottom, #4b0082, #000000)" }}
+        style={{
+          background: "linear-gradient(to bottom, #4b0082, #000000)",
+        }}
       >
         <div
           className="p-5 text-white w-100"
@@ -59,32 +62,6 @@ function Login() {
           </h2>
 
           <form onSubmit={handleSubmit}>
-            {!isLogin && (
-              <>
-                <div className="form-group mb-3">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Full Name"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="form-group mb-3">
-                  <select
-                    className="form-control"
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                  >
-                    <option value="Attendee">Attendee</option>
-                    <option value="Organizer">Organizer</option>
-                    <option value="Admin">Admin</option>
-                  </select>
-                </div>
-              </>
-            )}
-
             <div className="form-group mb-3">
               <input
                 type="email"
@@ -92,7 +69,6 @@ function Login() {
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
               />
             </div>
 
@@ -103,7 +79,6 @@ function Login() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
               />
             </div>
 
