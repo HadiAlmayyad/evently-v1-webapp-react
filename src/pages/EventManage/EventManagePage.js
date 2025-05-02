@@ -8,7 +8,7 @@ function EventManagePage()
 {
 	const [ showPreview, setShowPreview ] = useState( false );
 	const [ registrationMethodEnabled, setRegistrationMethodEnabled ] = useState( false );
-	const eventlyEventsAPI = "http://localhost:8000/api/events";
+	const eventlyAPI = "http://localhost:8000/api";
 
 	const openPreview = function()
 	{
@@ -20,46 +20,110 @@ function EventManagePage()
 		setShowPreview( false )
 	};
 
-	const onEventSubmit = async function( event )
+	const populateCategories = function()
 	{
-		event.preventDefault();
-		const formData = new FormData( event.target );
-		const response = await fetch( eventlyEventsAPI );
-		const eventlyEvents = await response.json();
 
-		fetch( eventlyEventsAPI,
+		fetch( `${eventlyAPI}/categories` )
+		.then( async function( response )
 		{
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(
+			const categories = await response.json();
+			const categorySelection = document.getElementById( "category-selection" );
+			categorySelection.innerHTML = "";
+
+			categories.forEach( function( category )
 			{
-				id: eventlyEvents.length,
-				title: formData.get( "title" ),
-				thumbnail: null, //formData.get( "thumbnail" ),
-				description: formData.get( "description" ),
-				category: formData.get( "category" ),
-				venue: formData.get( "venue" ),
-				datetime: formData.get( "datetime" ),
-				registrationRequired: formData.get( "registrationRequired" ),
-				registrationMethod: formData.get( "registrationMethod" ),
-				organizer: JSON.parse( localStorage.getItem("user") )["fullName"],
-			}),
-		})
-		.then( function( response )
-		{
-			if ( response.status === 201 )
-			{
-				alert( "Event submitted sucessfully!" );
-			}
-			else
-			{
-				alert( "There was an error submitting the event." );
-			}
+				var opt = document.createElement( "option" );
+				opt.innerHTML = category.name;
+				categorySelection.appendChild( opt );
+			});
 		})
 		.catch( function( error )
 		{
-			alert( "There was an error connecting to the server." );
+			console.log( "Error fetching categories: ", error.message );
+			const categorySelection = document.getElementById( "category-selection" );
+			categorySelection.innerHTML = "";
+			var opt = document.createElement( "option" );
+			opt.innerHTML = "There was a problem fetching the categories.";
+			categorySelection.appendChild( opt );
 		});
+	};
+
+	const populateVenues = function()
+	{
+		fetch( `${eventlyAPI}/venues` )
+		.then( async function( response )
+		{
+			const venues = await response.json();
+			const venueSelection = document.getElementById( "venue-selection" );
+			venueSelection.innerHTML = "";
+
+			venues.forEach( function( venue )
+			{
+				var opt = document.createElement( "option" );
+				opt.disabled = venue.availableDates !== "Available";
+				opt.innerHTML = `${venue.name} | ${venue.location} | Capacity: ${venue.capacity} | ` + ( venue.availableDates === "Available" ? "Available" : "Unavailable" );
+				venueSelection.appendChild( opt );
+			});
+		})
+		.catch( function( error )
+		{
+			console.log( "Error fetching venues: ", error.message );
+			const venueSelection = document.getElementById( "venue-selection" );
+			venueSelection.innerHTML = "";
+			var opt = document.createElement( "option" );
+			opt.innerHTML = "There was a problem fetching the venues. Refresh the page.";
+			venueSelection.appendChild( opt );
+		});
+	};
+
+	const onEventSubmit = async function( event )
+	{
+		event.preventDefault();
+
+		try
+		{
+			const formData = new FormData( event.target );
+			const response = await fetch( `${eventlyAPI}/events` );
+			const eventlyEvents = await response.json();
+
+			fetch( `${eventlyAPI}/events`,
+			{
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(
+				{
+					id: eventlyEvents.length,
+					title: formData.get( "title" ),
+					thumbnail: null, //formData.get( "thumbnail" ),
+					description: formData.get( "description" ),
+					category: formData.get( "category" ),
+					venue: formData.get( "venue" ),
+					datetime: formData.get( "datetime" ),
+					registrationRequired: formData.get( "registrationRequired" ),
+					registrationMethod: formData.get( "registrationMethod" ),
+					organizer: JSON.parse( localStorage.getItem("user") ).fullName,
+				}),
+			})
+			.then( function( response )
+			{
+				if ( response.ok )
+				{
+					alert( "Event submitted sucessfully!" );
+				}
+				else
+				{
+					throw new Error( "There was a problem submitting the event." );
+				}
+			})
+			.catch( function( error )
+			{
+				alert( "Error: ", error.message );
+			});
+		}
+		catch ( error )
+		{
+			alert( "There was a problem connecting to the server." );
+		}
 	};
 
 	var minimumDate = new Date();
@@ -99,8 +163,8 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<Form.Label>Category</Form.Label>
-							<Form.Select name="category" required>
-								<option>Select Category</option>
+							<Form.Select id="category-selection" name="category" required>
+								{ populateCategories() }
 							</Form.Select>
 							<Form.Text>What category does the event fall under?</Form.Text>
 						</Form.Group>
@@ -109,8 +173,8 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<Form.Label>Venue</Form.Label>
-							<Form.Select name="venue" required>
-								<option>Select Venue</option>
+							<Form.Select id="venue-selection" name="venue" required>
+								{ populateVenues() }
 							</Form.Select>
 							<Form.Text>Where will the event be held?</Form.Text>
 						</Form.Group>
