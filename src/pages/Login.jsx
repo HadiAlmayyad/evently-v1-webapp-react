@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Navbar from "../components/Navbar";
 import FooterEv from "../components/FooterEv";
 
@@ -7,59 +8,32 @@ function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [role, setRole] = useState("Attendee");
   const navigate = useNavigate();
-
-  const dummyUsers = [
-    {
-      fullName: "Ali Al-Qahtani",
-      email: "ali@example.com",
-      password: "123456",
-      role: "Attendee",
-      id: "202012345",
-      major: "Software Engineering",
-      gender: "Male",
-    },
-    {
-      fullName: "Sarah Organizer",
-      email: "sarah@org.com",
-      password: "123456",
-      role: "Organizer",
-      id: "202045678",
-      major: "Event Management",
-      gender: "Female",
-    },
-    {
-      fullName: "Admin User",
-      email: "admin@admin.com",
-      password: "admin123",
-      role: "Admin",
-      id: "000000001",
-      major: "System Management",
-      gender: "N/A",
-    },
-  ];
 
   const toggleForm = () => setIsLogin(!isLogin);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isLogin) {
-      const matchedUser = dummyUsers.find(
-        (u) => u.email === email && u.password === password
-      );
+    const payload = isLogin
+      ? { email, password }
+      : { fullName, email, password, role };
 
-      if (matchedUser) {
-        const savedProfile = localStorage.getItem(`profile_${matchedUser.email}`);
-        const finalUser = savedProfile ? JSON.parse(savedProfile) : matchedUser;
+    const endpoint = isLogin ? "/api/auth/login" : "/api/auth/signup";
 
-        localStorage.setItem("user", JSON.stringify(finalUser));
-        navigate("/profile");
-      } else {
-        alert("Invalid email or password");
-      }
-    } else {
-      alert("Signup not implemented. Use Log In instead.");
+    try {
+      const response = await axios.post(endpoint, payload);
+      const { user, token } = response.data;
+
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", token);
+
+      navigate("/profile");
+    } catch (err) {
+      const msg = err.response?.data?.message || "Server error.";
+      alert(msg);
     }
   };
 
@@ -68,9 +42,7 @@ function Login() {
       <Navbar showLogout={false} />
       <div
         className="d-flex justify-content-center align-items-center vh-100 px-3"
-        style={{
-          background: "linear-gradient(to bottom, #4b0082, #000000)",
-        }}
+        style={{ background: "linear-gradient(to bottom, #4b0082, #000000)" }}
       >
         <div
           className="p-5 text-white w-100"
@@ -87,6 +59,32 @@ function Login() {
           </h2>
 
           <form onSubmit={handleSubmit}>
+            {!isLogin && (
+              <>
+                <div className="form-group mb-3">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Full Name"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <select
+                    className="form-control"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                  >
+                    <option value="Attendee">Attendee</option>
+                    <option value="Organizer">Organizer</option>
+                    <option value="Admin">Admin</option>
+                  </select>
+                </div>
+              </>
+            )}
+
             <div className="form-group mb-3">
               <input
                 type="email"
@@ -94,6 +92,7 @@ function Login() {
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
 
@@ -104,6 +103,7 @@ function Login() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
 
@@ -145,11 +145,9 @@ function Login() {
           </div>
         </div>
       </div>
-
       <FooterEv />
     </>
   );
 }
 
 export default Login;
-

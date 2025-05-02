@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import FooterEv from "../components/FooterEv";
 import maleImg from "../assets/male.png";
 import femaleImg from "../assets/female.png";
 import adminImg from "../assets/admin.jpeg";
-import FooterEv from "../components/FooterEv";
 
 function Profile() {
   const navigate = useNavigate();
   const storedUser = JSON.parse(localStorage.getItem("user"));
+
   const [editMode, setEditMode] = useState(false);
   const [user, setUser] = useState(storedUser || {});
   const [imagePreview, setImagePreview] = useState(getDefaultImage(storedUser?.role));
-  const [defaultImage] = useState(getDefaultImage(storedUser?.role));
 
   useEffect(() => {
-    if (!storedUser) navigate("/login");
+    if (!storedUser) {
+      navigate("/login");
+    }
   }, [storedUser, navigate]);
 
   function getDefaultImage(role) {
     switch (role) {
-      case "Admin": return adminImg;
-      case "Organizer": return femaleImg;
-      default: return maleImg;
+      case "Admin":
+        return adminImg;
+      case "Organizer":
+        return femaleImg;
+      default:
+        return maleImg;
     }
   }
 
@@ -40,29 +45,20 @@ function Profile() {
     }
   };
 
-  const handleResetImage = () => setImagePreview(defaultImage);
-
   const toggleEdit = () => {
-    if (editMode) {
-      const latest = JSON.parse(localStorage.getItem("user"));
-      setUser(latest);
-      setImagePreview(getDefaultImage(latest.role));
+    if (editMode && storedUser) {
+      setUser(storedUser);
+      setImagePreview(getDefaultImage(storedUser.role));
     }
-    setEditMode((prev) => !prev);
+    setEditMode(!editMode);
   };
 
+  const handleResetImage = () => setImagePreview(getDefaultImage(user.role));
+
   const handleSave = () => {
-    const prevEmail = storedUser.email;
-    const updatedUser = { ...user };
-
-    if (updatedUser.email !== prevEmail) {
-      localStorage.removeItem(`profile_${prevEmail}`);
-    }
-
-    localStorage.setItem("user", JSON.stringify(updatedUser));
-    localStorage.setItem(`profile_${updatedUser.email}`, JSON.stringify(updatedUser));
+    localStorage.setItem("user", JSON.stringify(user));
+    alert("Profile saved locally!");
     setEditMode(false);
-    alert("Profile saved!");
   };
 
   return (
@@ -90,7 +86,6 @@ function Profile() {
           Your Profile
         </h2>
 
-        {/* Profile Image */}
         <div className="d-flex align-items-center mb-4">
           <div
             style={{
@@ -115,7 +110,6 @@ function Profile() {
           </div>
         </div>
 
-        {/* Profile Card */}
         <div
           className="p-5 text-white"
           style={{
@@ -146,54 +140,46 @@ function Profile() {
             )}
           </div>
 
-          {/* Only show for non-admins */}
           {user.role !== "Admin" && (
             <>
               <div className="mb-3">
-                <strong>ID:</strong>{" "}
-                {editMode ? (
-                  <input type="text" name="id" value={user.id} onChange={handleInputChange} className="form-control mt-2" />
-                ) : (
-                  user.id
-                )}
-              </div>
-
-              <div className="mb-3">
                 <strong>Role:</strong> {user.role}
               </div>
-
               <div className="mb-3">
                 <strong>Major:</strong>{" "}
                 {editMode ? (
-                  <input type="text" name="major" value={user.major} onChange={handleInputChange} className="form-control mt-2" />
+                  <input type="text" name="major" value={user.major || ""} onChange={handleInputChange} className="form-control mt-2" />
                 ) : (
-                  user.major
+                  user.major || "N/A"
                 )}
               </div>
-
               <div className="mb-3">
                 <strong>Gender:</strong>{" "}
                 {editMode ? (
-                  <input type="text" name="gender" value={user.gender} onChange={handleInputChange} className="form-control mt-2" />
+                  <input type="text" name="gender" value={user.gender || ""} onChange={handleInputChange} className="form-control mt-2" />
                 ) : (
-                  user.gender
+                  user.gender || "N/A"
+                )}
+              </div>
+              <div className="mb-3">
+                <strong>ID:</strong>{" "}
+                {editMode ? (
+                  <input type="text" name="id" value={user.id || ""} onChange={handleInputChange} className="form-control mt-2" />
+                ) : (
+                  user.id || "N/A"
                 )}
               </div>
             </>
           )}
 
-          {/* Upload image */}
           {editMode && (
             <div className="mb-3">
               <label htmlFor="profilePic" className="form-label">Upload Profile Picture</label>
               <input type="file" className="form-control" id="profilePic" accept="image/*" onChange={handleImageChange} />
-              <button className="btn btn-sm mt-2 btn-light" onClick={handleResetImage}>
-                Reset Image
-              </button>
+              <button className="btn btn-sm mt-2 btn-light" onClick={handleResetImage}>Reset Image</button>
             </div>
           )}
 
-          {/* Buttons */}
           <div className="d-flex justify-content-end gap-2">
             {editMode ? (
               <>
@@ -215,10 +201,7 @@ function Profile() {
                 <button
                   className="btn mt-3 btn-secondary"
                   onClick={toggleEdit}
-                  style={{
-                    borderRadius: "10px",
-                    padding: "10px 20px",
-                  }}
+                  style={{ borderRadius: "10px", padding: "10px 20px" }}
                 >
                   Cancel
                 </button>
@@ -243,11 +226,11 @@ function Profile() {
           </div>
         </div>
       </div>
-
       <FooterEv />
     </>
   );
 }
 
 export default Profile;
+
 
