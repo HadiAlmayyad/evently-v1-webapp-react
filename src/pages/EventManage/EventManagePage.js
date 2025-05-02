@@ -26,7 +26,7 @@ function EventManagePage()
 		<div>
 			<Navbar showLogout={true}/>
 			<Container fluid="md" data-bs-theme="dark">
-				<Form>
+				<Form action="http://localhost:8000/api/events" method="post">
 					<h1>Create an Event</h1>
 					<br/>
 					<Row>
@@ -37,14 +37,14 @@ function EventManagePage()
 						</Form.Group>
 					</Row>
 					<br/>
-					<Row>
+					{/* <Row>
 						<Form.Group>
 							<Form.Label>Thumbnail</Form.Label>
 							<Form.Control name="thumbnail" type="file"/>
 							<Form.Text>Upload an image</Form.Text>
 						</Form.Group>
 					</Row>
-					<br/>
+					<br/> */}
 					<Row>
 						<Form.Group>
 							<FloatingLabel label="Description">
@@ -82,7 +82,7 @@ function EventManagePage()
 					<br/>
 					<Row>
 						<Form.Group>
-							<Form.Check name="registration-required" type="checkbox" label="Registration required" onChange={ ( event ) => setRegistrationMethodEnabled( event.target.checked )}/>
+							<Form.Check name="registrationRequired" type="checkbox" label="Registration required" onChange={ ( event ) => setRegistrationMethodEnabled( event.target.checked )}/>
 							<Form.Text>Are attendees required to register to attend the event?</Form.Text>
 						</Form.Group>
 					</Row>
@@ -90,7 +90,7 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<FloatingLabel label="Method of registration">
-								<Form.Control name="registration-method" as="textarea" required disabled={!registrationMethodEnabled}/>
+								<Form.Control name="registrationMethod" as="textarea" required disabled={!registrationMethodEnabled}/>
 							</FloatingLabel>
 							<Form.Text>How will the attendees register to attend the event?</Form.Text>
 						</Form.Group>
