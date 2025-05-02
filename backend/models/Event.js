@@ -4,7 +4,8 @@ const eventSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
 
-  datetime: { type: Date, required: true },  // e.g., 2025-04-15T14:30:00.000Z
+  date: { type: Date, required: true },  // e.g., 2025-04-15
+  time: { type: String, required: true }, // e.g., "09:00 AM"
 
   // New: category field
   category: { type: String, required: true }, // e.g., "Tech", "Music", etc.
