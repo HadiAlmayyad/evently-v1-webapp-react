@@ -24,6 +24,17 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// CREATE new event
+router.post('/', async (req, res) => {
+  try {
+    const newUser = new User(req.body);
+    await newUser.save();
+    res.status(201).json(newUser);
+  } catch (err) {
+    res.status(400).json({ error: 'Failed to create event' });
+  }
+});
+
 // POST /api/users/:id/register/:eventId
 router.post('/:id/register/:eventId', async (req, res) => {
   try {
