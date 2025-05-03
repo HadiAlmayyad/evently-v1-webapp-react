@@ -1,15 +1,18 @@
 import "./EventManagePage.css";
 import React, { useState } from "react";
-import { Button, Col, Container, FloatingLabel, Form, Modal, Placeholder, Row } from "react-bootstrap";
+import { Button, Col, Container, FloatingLabel, Form, /* Modal, Placeholder, */ Row } from "react-bootstrap";
 import Navbar from "../../components/Navbar";
 import FooterEv from "../../components/FooterEv";
 
 function EventManagePage()
 {
-	const [ showPreview, setShowPreview ] = useState( false );
+	// const [ showPreview, setShowPreview ] = useState( false );
 	const [ registrationMethodEnabled, setRegistrationMethodEnabled ] = useState( false );
+	const [ disableSubmit, setDisableSubmit ] = useState( false );
+	// const [ thumbnailURL, setThumbnailURL ] = useState( null );
 	const eventlyAPI = "http://localhost:8000/api";
 
+/*
 	const openPreview = function()
 	{
 		setShowPreview( true )
@@ -19,7 +22,40 @@ function EventManagePage()
 	{
 		setShowPreview( false )
 	};
-
+*/
+/*
+	const uploadImage = function( event )
+	{
+		try
+		{
+			fetch( `${eventlyAPI}/images`,
+			{
+				method: "POST",
+				body: event.target.value,
+			})
+			.then( function( response )
+			{
+				if ( response.ok )
+				{
+					setThumbnailURL( response.text );
+				}
+				else
+				{
+					throw new Error( "There was an error uploading the image." );
+				}
+			})
+			.catch( function( error ) 
+			{
+				throw error;
+			});
+		}
+		catch( error )
+		{
+			alert( "Error uploading image:", error.message );
+		}
+	}
+*/
+/*
 	const populateCategories = function()
 	{
 
@@ -39,6 +75,7 @@ function EventManagePage()
 		})
 		.catch( function( error )
 		{
+			setDisableSubmit( true );
 			console.log( "Error fetching categories: ", error.message );
 			const categorySelection = document.getElementById( "category-selection" );
 			categorySelection.innerHTML = "";
@@ -47,6 +84,7 @@ function EventManagePage()
 			categorySelection.appendChild( opt );
 		});
 	};
+*/
 
 	const populateVenues = function()
 	{
@@ -67,11 +105,12 @@ function EventManagePage()
 		})
 		.catch( function( error )
 		{
+			setDisableSubmit( true );
 			console.log( "Error fetching venues: ", error.message );
 			const venueSelection = document.getElementById( "venue-selection" );
 			venueSelection.innerHTML = "";
 			var opt = document.createElement( "option" );
-			opt.innerHTML = "There was a problem fetching the venues. Refresh the page.";
+			opt.innerHTML = "There was a problem fetching the venues.";
 			venueSelection.appendChild( opt );
 		});
 	};
@@ -83,8 +122,8 @@ function EventManagePage()
 		try
 		{
 			const formData = new FormData( event.target );
-			const response = await fetch( `${eventlyAPI}/events` );
-			const eventlyEvents = await response.json();
+			// const response = await fetch( `${eventlyAPI}/events` );
+			// const eventlyEvents = await response.json();
 
 			fetch( `${eventlyAPI}/events`,
 			{
@@ -92,13 +131,13 @@ function EventManagePage()
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(
 				{
-					id: eventlyEvents.length,
+					// id: eventlyEvents.length,
 					title: formData.get( "title" ),
 					thumbnail: null, //formData.get( "thumbnail" ),
 					description: formData.get( "description" ),
-					category: formData.get( "category" ),
+					category: "none", //formData.get( "category" ), // To be set by the admin
 					venue: formData.get( "venue" ),
-					datetime: formData.get( "datetime" ),
+					date: formData.get( "datetime" ),
 					registrationRequired: formData.get( "registrationRequired" ),
 					registrationMethod: formData.get( "registrationMethod" ),
 					organizer: JSON.parse( localStorage.getItem("user") ).fullName,
@@ -144,14 +183,14 @@ function EventManagePage()
 						</Form.Group>
 					</Row>
 					<br/>
-					<Row>
+					{/* <Row>
 						<Form.Group>
 							<Form.Label>Thumbnail</Form.Label>
-							<Form.Control name="thumbnail" type="file"/>
+							<Form.Control name="thumbnail" type="file" onChange={uploadImage}/>
 							<Form.Text>Upload an image</Form.Text>
 						</Form.Group>
 					</Row>
-					<br/>
+					<br/> */}
 					<Row>
 						<Form.Group>
 							<FloatingLabel label="Description">
@@ -160,7 +199,7 @@ function EventManagePage()
 						</Form.Group>
 					</Row>
 					<br/>
-					<Row>
+					{/* <Row>
 						<Form.Group>
 							<Form.Label>Category</Form.Label>
 							<Form.Select id="category-selection" name="category" required>
@@ -169,7 +208,7 @@ function EventManagePage()
 							<Form.Text>What category does the event fall under?</Form.Text>
 						</Form.Group>
 					</Row>
-					<br/>
+					<br/> */}
 					<Row>
 						<Form.Group>
 							<Form.Label>Venue</Form.Label>
@@ -205,10 +244,10 @@ function EventManagePage()
 					</Row>
 					<br/>
 					<Row>
-						<Col><Button variant="secondary">Cancel</Button> <Button onClick={openPreview} variant="outline-light">Preview</Button> <Button variant="outline-info">Draft</Button> <Button variant="primary" type="submit">Submit</Button></Col>
+						<Col><Button variant="secondary" href="/organizer-dashboard">Cancel</Button> {/* <Button onClick={openPreview} variant="outline-light">Preview</Button> <Button variant="outline-info">Draft</Button> */} <Button variant="primary" type="submit" disabled={disableSubmit}>Submit</Button></Col>
 					</Row>
 				</Form>
-				<Modal show={showPreview} size="xl" onHide={closePreview}>
+				{/* <Modal show={showPreview} size="xl" onHide={closePreview}>
 					<Modal.Header closeButton={true}>
 						<Modal.Title>Preview</Modal.Title>
 					</Modal.Header>
@@ -218,7 +257,7 @@ function EventManagePage()
 					<Modal.Footer>
 						<Button variant="secondary" onClick={closePreview}>Exit Preview</Button>
 					</Modal.Footer>
-				</Modal>
+				</Modal> */}
 			</Container>
 			<FooterEv/>
 		</div>
