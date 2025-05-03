@@ -1,4 +1,8 @@
-
+.custom-modal .form-select {
+  background-color: #150733;
+  color: #ffffff;
+  border: 1px solid #150733;
+}
 
 .dashboard-page {
   background-color: var(--ev-background);

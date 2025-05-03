@@ -1,45 +1,94 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Row, Col, Badge } from 'react-bootstrap';
-import EditEventModal from '../../components/OrganizerDashboardComponents/EditEventModal'; 
+import EditEventModal from './EditEventModal'; 
 import EventViewModal from './EventViewModal';
 
 export default function EventsTabContent() {
-  const eventlyAPI = "http://localhost:5000/api";
-
-  const events = fetch( `${eventlyAPI}/events` )
-  .then( async function( response )
-  {
-    if ( response.ok )
-    {
-      return await response.json();
-    }
-    else
-    {
-      throw new Error( "There was a problem fetching the events." );
-    }
-  })
-  .catch( function( error )
-  {
-    console.log( "Error:", error.message );
-    return null;
-  });
-
-  const [eventList, setEventList] = useState(events);
+  const eventlyAPI = "http://localhost:8000/api";
+  const [eventList, setEventList] = useState([]);
   const [showModal, setShowModal] = useState(false); // Controls modal visibility
   const [selectedEvent, setSelectedEvent] = useState(null); // Stores the event to be displayed in the modal
   const [showEditModal, setShowEditModal] = useState(false); // Controls edit modal visibility
 
+  useEffect(() =>
+  {
+    fetch( `${eventlyAPI}/events` )
+    .then( ( response ) => response.json() )
+    .then( function( data )
+    {
+      setEventList( data.filter( ( dataElem ) => dataElem.organizer === JSON.parse( localStorage.getItem("user") ).fullName ) );
+    })
+    .catch( function( error )
+    {
+      console.log( "Error:", error.message );
+    });
+  }, [] );
 
   const handlePublish = (id) => {
-    setEventList((prev) =>
-      prev.map((event) =>
-        event._id === id ? { ...event, adminStatus: 'pending' } : event
-      )
-    );
+    try
+    {
+      fetch( `${eventlyAPI}/events/${id}`,
+      {
+        method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify( { adminStatus: "pending" } ),
+      })
+      .then( function( response )
+      {
+        if ( response.ok )
+        {
+          alert( "Event published sucessfully!" );
+          setEventList((prev) =>
+            prev.map((event) =>
+              event._id === id ? { ...event, adminStatus: 'pending' } : event
+            )
+          );
+        }
+        else
+        {
+          throw new Error( "There was a problem publishing the event." );
+        }
+      })
+      .catch( function( error )
+      {
+        alert( "Error: ", error.message );
+      });
+    }
+    catch ( error )
+    {
+      alert( "There was a problem connecting to the server." );
+    }
   };
 
-  const handleRemove = (id) => {
-    setEventList((prev) => prev.filter((event) => event._id !== id));
+  const handleRemove = (id) =>
+  {  
+    try
+    {
+      fetch( `${eventlyAPI}/events/${id}`,
+      {
+        method: "DELETE",
+      })
+      .then( function( response )
+      {
+        if ( response.ok )
+        {
+          alert( "Event removed sucessfully!" );
+          setEventList((prev) => prev.filter((event) => event._id !== id));
+        }
+        else
+        {
+          throw new Error( "There was a problem removing the event." );
+        }
+      })
+      .catch( function( error )
+      {
+        alert( "Error: ", error.message );
+      });
+    }
+    catch ( error )
+    {
+      alert( "There was a problem connecting to the server." );
+    }
   };
 
   const handleView = (event) => {
@@ -85,10 +134,16 @@ export default function EventsTabContent() {
                   <strong>Organizer:</strong> {event.organizer}
                 </Card.Text>
                 <Card.Text>
+                  <strong>Category:</strong> {event.category}
+                </Card.Text>
+                <Card.Text>
                   <strong>Venue:</strong> {event.venue}
                 </Card.Text>
                 <Card.Text>
-                  <strong>Date & Time:</strong> {event.datetime}
+                  <strong>Date & Time:</strong> {( new Date( event.date ) ).toLocaleString()}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Registration required:</strong> {event.registrationRequired==="on" ? "Yes" : "No"}
                 </Card.Text>
                 <Badge
                   bg={
@@ -136,7 +191,7 @@ export default function EventsTabContent() {
                     variant="outline-light"
                     size="sm"
                     className="ms-2"
-                    onClick={handleEdit}
+                    onClick={() => handleEdit(event)}
                   >
                     Edit
                   </Button>

@@ -27,8 +27,13 @@ function EventViewModal({ show, onHide, event }) {
 
       <Modal.Body className="px-4">
         <Row className="mb-3">
+          <Col xs={6}><strong>Category:</strong></Col>
+          <Col xs={6}>{event.category}</Col>
+        </Row>
+
+        <Row className="mb-3">
           <Col xs={6}><strong>Date & Time:</strong></Col>
-          <Col xs={6}>{event.datetime}</Col>
+          <Col xs={6}>{( new Date( event.date ) ).toString()}</Col>
         </Row>
 
         <Row className="mb-3">
@@ -58,6 +63,16 @@ function EventViewModal({ show, onHide, event }) {
             </div>
           </Col>
         </Row>
+        {event.registrationRequired==="on" && (
+        <Row className="mb-3">
+          <Col xs={12}>
+            <strong>Registration Method:</strong>
+            <div className="mt-2 text-dark   border rounded p-3 bg-dark-subtle">
+              {event.registrationMethod || "No registration method provided."}
+            </div>
+          </Col>
+        </Row>
+        )}
       </Modal.Body>
     </Modal>
   );

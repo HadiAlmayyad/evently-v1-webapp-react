@@ -55,7 +55,7 @@ function EventManagePage()
 		}
 	}
 */
-/*
+
 	const populateCategories = function()
 	{
 
@@ -69,7 +69,7 @@ function EventManagePage()
 			categories.forEach( function( category )
 			{
 				var opt = document.createElement( "option" );
-				opt.innerHTML = category.name;
+				opt.innerHTML = category.title;
 				categorySelection.appendChild( opt );
 			});
 		})
@@ -84,7 +84,6 @@ function EventManagePage()
 			categorySelection.appendChild( opt );
 		});
 	};
-*/
 
 	const populateVenues = function()
 	{
@@ -135,8 +134,8 @@ function EventManagePage()
 					title: formData.get( "title" ),
 					thumbnail: null, //formData.get( "thumbnail" ),
 					description: formData.get( "description" ),
-					category: "none", //formData.get( "category" ), // To be set by the admin
-					venue: formData.get( "venue" ),
+					category: formData.get( "category" ),
+					venue: formData.get( "venue" ).replace( / \| (un)?available$/i, "" ),
 					date: formData.get( "datetime" ),
 					registrationRequired: formData.get( "registrationRequired" ),
 					registrationMethod: formData.get( "registrationMethod" ),
@@ -199,7 +198,7 @@ function EventManagePage()
 						</Form.Group>
 					</Row>
 					<br/>
-					{/* <Row>
+					<Row>
 						<Form.Group>
 							<Form.Label>Category</Form.Label>
 							<Form.Select id="category-selection" name="category" required>
@@ -208,7 +207,7 @@ function EventManagePage()
 							<Form.Text>What category does the event fall under?</Form.Text>
 						</Form.Group>
 					</Row>
-					<br/> */}
+					<br/>
 					<Row>
 						<Form.Group>
 							<Form.Label>Venue</Form.Label>
