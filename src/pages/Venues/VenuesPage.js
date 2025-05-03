@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Card, Row, Col, ListGroup, Modal, Form, Container } from "react-bootstrap";
 import './VenuesPage.css';
 import NavbarComponent from "../../components/AdminDashboardComponents/NavbarComponent";
@@ -6,11 +6,13 @@ import Navbar from "../../components/Navbar";
 
 function VenuesPage() {
 
-
-  const [venues, setVenues] = useState([
-    { id: 1, name: 'Auditorium A', capacity: 200, availability: 'Available', location: 'Building 1, Room 101' },
-    { id: 2, name: 'Conference Room B', capacity: 50, availability: 'Unavailable', location: 'Building 2, Room 205' }
-  ]);
+  const [venues, setVenues] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/api/venues")
+      .then(res => res.json())
+      .then(data => setVenues(data))
+      .catch(err => console.error("Failed to fetch venues:", err));
+  }, []);
 
   const [showModal, setShowModal] = useState(false);
   const [selectedVenue, setSelectedVenue] = useState(null);  // For editing
@@ -19,13 +21,19 @@ function VenuesPage() {
   const handleShowModal = (venue = null) => {
     if (venue) {
       setSelectedVenue(venue);
-      setVenueData(venue);
+      setVenueData({
+        name: venue.name || '',
+        capacity: venue.capacity || '',
+        availability: venue.availability || 'Available',
+        location: venue.location || ''
+      });
     } else {
       setSelectedVenue(null);
-      setVenueData({ name: '', capacity: '', availability: '', location: '' });
+      setVenueData({ name: '', capacity: '', availability: 'Available', location: '' });
     }
     setShowModal(true);
   };
+  
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -37,17 +45,48 @@ function VenuesPage() {
   };
 
   const handleSave = () => {
-    if (selectedVenue) {
-      setVenues(venues.map((venue) => venue.id === selectedVenue.id ? { ...venue, ...venueData } : venue));
-    } else {
-      setVenues([...venues, { id: Date.now(), ...venueData }]);
-    }
-    handleCloseModal();
+    const method = selectedVenue ? "PUT" : "POST";
+    const url = selectedVenue
+      ? `http://localhost:5000/api/venues/${selectedVenue._id}`
+      : "http://localhost:5000/api/venues";
+  
+    fetch(url, {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(venueData),
+    })
+      .then(res => res.json())
+      .then(savedVenue => {
+        if (method === "POST") {
+          setVenues(prev => [...prev, savedVenue]); // use backend _id
+        } else {
+          setVenues(prev =>
+            prev.map(v => (v._id === savedVenue._id ? savedVenue : v))
+          );
+        }
+        handleCloseModal();
+      })
+      .catch(err => {
+        console.error("Failed to save venue:", err);
+        alert("Venue save failed.");
+      });
   };
+  
+  
 
   const handleDelete = (id) => {
-    setVenues(venues.filter((venue) => venue.id !== id));
+    if (!window.confirm("Delete this venue?")) return;
+  
+    fetch(`http://localhost:5000/api/venues/${id}`, {
+      method: "DELETE",
+    })
+      .then(res => res.json())
+      .then(() => {
+        setVenues(prev => prev.filter(v => v._id !== id));
+      })
+      .catch(err => console.error("Failed to delete venue:", err));
   };
+  
 
   return (
     <div className="venues-page">
@@ -67,7 +106,7 @@ function VenuesPage() {
 
             <div className="venues-list mt-3">
             {venues.map((venue) => (
-                <Card key={venue.id} className="venue-card mb-3 shadow-sm" style={{ backgroundColor: '#261D41' }}>
+                <Card key={venue._id} className="venue-card mb-3 shadow-sm" style={{ backgroundColor: '#261D41' }}>
                 <Card.Body>
                     <Row className="align-items-center">
                     {/* Venue Details */}
@@ -75,7 +114,7 @@ function VenuesPage() {
                         <h5>{venue.name}</h5>
                         <p><strong>Location:</strong> {venue.location}</p>
                         <p><strong>Capacity:</strong> {venue.capacity}</p>
-                        <p><strong>Status:</strong> 
+                        <p><strong>Status:  </strong> 
                         <span className={`badge ${venue.availability === 'Available' ? 'bg-success' : 'bg-danger'}`}>
                             {venue.availability}
                         </span>
@@ -94,7 +133,7 @@ function VenuesPage() {
                         <Button 
                         variant="danger" 
                         size="sm" 
-                        onClick={() => handleDelete(venue.id)}>
+                        onClick={() => handleDelete(venue._id)}>
                         Delete
                         </Button>
                     </Col>
