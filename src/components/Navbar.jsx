@@ -60,7 +60,7 @@ function Navbar({ showLogout = true }) {
                   <Link className="nav-link text-white" to="/my-events">My Events</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link text-white" to="/my-org-events">Organised Events</Link>
+                  <Link className="nav-link text-white" to="/organizer-dashboard">Organizer Dashboard</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link text-white" to="/discover">Discover Events</Link>
