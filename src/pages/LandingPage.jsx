@@ -243,6 +243,15 @@ function LandingPage() {
             >
               <i className="fab fa-github"></i>
             </a>
+            <a
+              href="https://github.com/HadiAlmayyad"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-icon"
+              title="GitHub - Hadi"
+            >
+              <i className="fab fa-github"></i>
+            </a>
           </div>
           <div className="footer-text">
             Built by <strong>Team Evently</strong> — KFUPM • All rights reserved © 2025
