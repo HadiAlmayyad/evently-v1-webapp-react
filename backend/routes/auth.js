@@ -17,7 +17,14 @@ router.post("/signup", async (req, res) => {
     const user = new User({ fullName, email, password: hashed, role });
     await user.save();
 
-    res.status(201).json({ message: "Signup successful", user: { fullName, email, role } });
+    res.status(201).json({
+      message: "Signup successful",
+      user: {
+        fullName: user.fullName,
+        email: user.email,
+        role: user.role
+      }
+    });
   } catch (err) {
     console.error("Signup error:", err);
     res.status(500).json({ message: "Server error" });

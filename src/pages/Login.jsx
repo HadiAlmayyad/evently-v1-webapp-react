@@ -8,6 +8,8 @@ function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
+
   const navigate = useNavigate();
 
   const toggleForm = () => setIsLogin(!isLogin);
@@ -23,7 +25,9 @@ function Login() {
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(
+          isLogin ? { email, password } : { fullName, email, password }
+        ),
       });
 
       const data = await res.json();
@@ -59,6 +63,18 @@ function Login() {
           <h2 className="text-center mb-4">
             {isLogin ? "Welcome Back!" : "Create Account"}
           </h2>
+
+          {!isLogin && (
+            <div className="form-group mb-3">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Full Name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
+            </div>
+          )}
 
           <form onSubmit={handleSubmit}>
             <div className="form-group mb-3">
