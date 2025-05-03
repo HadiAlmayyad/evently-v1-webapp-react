@@ -7,6 +7,7 @@ const eventRoutes = require('./routes/eventRoutes');
 const userRoutes = require('./routes/userRoutes');
 const venueRoutes = require('./routes/venueRoutes');
 const authRoutes = require('./routes/auth');
+const categoryRoutes = require('./routes/categoryRoutes');
 
 
 dotenv.config();
@@ -20,6 +21,7 @@ app.use('/api/events', eventRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/venues', venueRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/categories', categoryRoutes);
 
 
 // MongoDB Connection
@@ -37,4 +39,6 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log('MongoDB connecting .....')
+
 });

@@ -321,3 +321,11 @@ justify-content: flex-start;
   border-color: #2ECC71; /* Green border on success */
   background-color: #2A1C4C; /* Dark background */
 }
+
+.ev-category {
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: 0.2s ease-in-out;
+  background-color: rgb(108, 2, 87);
+  color: white;
+}

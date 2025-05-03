@@ -61,77 +61,75 @@ function UserInfo(user) {
        
 }
 
-function RegisteredEventsListView(user) { 
+function RegisteredEventsListView(user) {
 
-  const [openEventId, setOpenEventId] = useState(null); // controls which feedback is shown
+  const [openEventId, setOpenEventId] = useState(null);
 
-  if (!user) return null; // Early return to avoid accessing undefined user
+  if (!user || !user.registeredEvents || user.registeredEvents.length === 0) {
+    return <p>No registered events for this user</p>;
+  }
 
-  // Safely find the user’s registration entry
-  const userEntry = registerdEvents.find((entry) => entry.userId === user.id);
-
-  // If no entry is found, handle that gracefully
-  if (!userEntry) return <p className="text-muted">No registered events found for this user.</p>;
-
-
-  const eventTitle = (id) => {
-    
-    const event = events.find((event) => event.id === id);
-    return event ? event.title : "Event not found"; // Fallback if event not found
-  };
-
-  const eventDate = (id) => {
-    
-    const event = events.find((event) => event.id === id);
-    return event ? event.rge : "Event not found"; // Fallback if event not found
-  };
-
-  return ( 
+  return (
     <ListGroup className='ev-list'>
-        {userEntry.registeredEvents.length > 0 ? (
-          userEntry.registeredEvents.map((regEvent) => (
-            <div key={regEvent.eventId}>
-              <ListGroup.Item
-                action
-                className="btn-app ev-list-item rounded"
-                onClick={() =>
-                  setOpenEventId(openEventId === regEvent.eventId ? null : regEvent.eventId)
-                }
-              >
-                <Row>
-                    <Col xs={6} sm ={6} md={6} lg={6} >
-                    {eventTitle(regEvent.eventId)} 
-                    </Col>
+      {user.registeredEvents.map((regEvent) => {
+        const event = regEvent.eventId;
+        const feedback = regEvent.feedback || {};
 
-                    <Col >
-                      <small style={{color: 'var(--ev-unfocused-element)'}}>registered on:</small> {regEvent.registrationDate}
-                    </Col>
-                </Row>
-              </ListGroup.Item>
+        if (!event) return null; // Skip if event is not populated
 
-              <Collapse  in={openEventId === regEvent.eventId}>
-                <div className="p-3 border border-secondary rounded-bottom">
-                  {regEvent.feedback.map((fb, index) => (
-                    <div key={index} >
-                      <p><strong>What did you like most about the event?</strong> {fb.comment_1}</p>
-                      <p><strong>What things can be improved?</strong> {fb.comment_2}</p>
-                      <p><strong>Ratings:</strong></p>
-                      <ul>
-                        <li>Location: {fb.location}/10</li>
-                        <li>Date: {fb.date}/10</li>
-                        <li>Time: {fb.time}/10</li>
-                        <li>Food: {fb.food}/10</li>
-                        <li><strong>Overall: {fb.overall}/10</strong></li>
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </Collapse>
-            </div>
-          ))
-        ) : (
-          <p className="text-muted">No events registered.</p>
-        )}
+        return (
+          <div key={event._id}>
+            <ListGroup.Item
+              action
+              className="btn-app ev-list-item rounded"
+              onClick={() =>
+                setOpenEventId(openEventId === event._id ? null : event._id)
+              }
+            >
+              <Row>
+                <Col xs={6}>{event?.title}</Col>
+                <Col>
+                  <small style={{ color: 'var(--ev-unfocused-element)' }}>
+                    registered on:
+                  </small>{' '}
+                  {new Date(regEvent.registeredAt).toLocaleDateString()}
+                </Col>
+              </Row>
+            </ListGroup.Item>
+
+            <Collapse in={openEventId === event._id}>
+              <div className="p-3 border border-secondary rounded-bottom">
+                {Object.keys(feedback).length > 0 ? (
+                  <>
+                    <p>
+                      <strong>What did you like most about the event?</strong>{' '}
+                      {feedback.comment_1 || 'N/A'}
+                    </p>
+                    <p>
+                      <strong>What things can be improved?</strong>{' '}
+                      {feedback.comment_2 || 'N/A'}
+                    </p>
+                    <p>
+                      <strong>Ratings:</strong>
+                    </p>
+                    <ul>
+                      <li>Location: {feedback.location || 'N/A'}/10</li>
+                      <li>Date: {feedback.date || 'N/A'}/10</li>
+                      <li>Time: {feedback.time || 'N/A'}/10</li>
+                      <li>Food: {feedback.food || 'N/A'}/10</li>
+                      <li>
+                        <strong>Overall: {feedback.overall || 'N/A'}/10</strong>
+                      </li>
+                    </ul>
+                  </>
+                ) : (
+                  <p>No feedback provided !</p>
+                )}
+              </div>
+            </Collapse>
+          </div>
+        );
+      })}
     </ListGroup>
-  )
+  );
 }

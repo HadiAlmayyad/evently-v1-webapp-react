@@ -38,10 +38,10 @@ export default function CardsGridDiscover({filteredEvents, handleRegister, handl
 
                         <Button variant='success' size="sm" 
                             // Disable button if already registered
-                            disabled={user?.registeredEvents.some(e => String(e.eventId?._id) === String(event._id))} 
+                            disabled={user?.registeredEvents?.some(e => String(e.eventId?._id) === String(event._id))} 
                             onClick={() => handleRegister(event)}
                         >
-                            {user?.registeredEvents.some(e => 
+                            {user?.registeredEvents?.some(e => 
                                 String(e.eventId?._id) === String(event._id)) ? 
                                 "Registered" : 
                                 "Register"}

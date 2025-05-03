@@ -25,7 +25,7 @@ function DiscoverEvents() {
   const [showViewModal, setShowViewModal] = useState(false); // Controls modal visibility
   const [selectedEvent, setSelectedEvent] = useState(null); // Stores the event to be displayed in the modal
 
-
+  const currentUserId = "68151b3bd6561d8fe2b9cb51"
   // Backend Fetching //
   // Fetch events
   useEffect(() => {
@@ -43,7 +43,7 @@ function DiscoverEvents() {
   
   // Fetch user
   useEffect(() => {
-    fetch("http://localhost:5000/api/users/68142fa8ea61f232732c762b")
+    fetch(`http://localhost:5000/api/users/${currentUserId}`)
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
@@ -73,6 +73,14 @@ function DiscoverEvents() {
       })
       .then(() => {
         alert("Successfully registered!");
+
+        setUser(prev => ({
+          ...prev,
+          registeredEvents: [
+            ...prev.registeredEvents,
+            { eventId: { _id: event._id } }
+          ]
+        }));
   
         return fetch(`http://localhost:5000/api/users/${userId}`);
       })

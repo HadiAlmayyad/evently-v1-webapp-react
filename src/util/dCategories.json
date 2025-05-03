@@ -26,5 +26,9 @@
     {
         "id" : 7,
         "title" : "Competition"
+    },
+    {
+        "id" : 8,
+        "title" : "Social"
     }
 ]

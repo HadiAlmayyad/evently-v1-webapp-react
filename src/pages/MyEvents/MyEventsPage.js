@@ -21,6 +21,9 @@ export default function MyEventsPage() {
   const [userLoading, setUserLoading] = useState(true);
   const [filter, setFilter] = useState("all");
 
+  const currentUserId = "68151b3bd6561d8fe2b9cb51"
+
+
   // Fetch events
   useEffect(() => {
     fetch("http://localhost:5000/api/events")
@@ -37,7 +40,7 @@ export default function MyEventsPage() {
 
   // Fetch user
   useEffect(() => {
-    fetch("http://localhost:5000/api/users/68142fa8ea61f232732c762b")
+    fetch(`http://localhost:5000/api/users/${currentUserId}`)
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
@@ -58,19 +61,23 @@ export default function MyEventsPage() {
 
   // Used by CardsGrid to delete/cancel Events
   const handleDelete = (eventId) => {
-    fetch(`http://localhost:5000/api/events/${eventId}`, {
+    fetch(`http://localhost:5000/api/users/${currentUserId}/unregister/${eventId}`, {
       method: 'DELETE',
     })
       .then(response => {
         if (!response.ok) throw new Error('Failed to delete event');
-        setEvents(prev => prev.filter(ev => ev._id !== eventId));
+        
+        // Remove from user.registeredEvents
+        setUser(prev => ({
+          ...prev,
+          registeredEvents: prev.registeredEvents?.filter(e => e.eventId?._id !== eventId)
+        }));
       })
       .catch(err => console.error('Delete error:', err));
   };
-
   // Filter registered Events for the user, then filter by time
   // Step 1: Get registered event IDs
-  const registeredEventIds = user?.registeredEvents.map(e => String(e.eventId?._id || e.eventId)) || [];
+  const registeredEventIds = user?.registeredEvents?.map(e => String(e.eventId?._id || e.eventId)) || [];
 
   // Step 2: Filter events that are registered
   const registeredEventsOnly = events.filter(event =>

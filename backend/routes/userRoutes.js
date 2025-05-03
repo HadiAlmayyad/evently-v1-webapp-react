@@ -75,4 +75,49 @@ router.put('/:userId/feedback/:eventId', async (req, res) => {
   }
 });
 
+// DELETE /api/users/:userId/unregister/:eventId
+router.delete('/:userId/unregister/:eventId', async (req, res) => {
+  try {
+    const { userId, eventId } = req.params;
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    // Filter out the event to be removed
+    const initialLength = user.registeredEvents.length;
+    user.registeredEvents = user.registeredEvents.filter(e => !e.eventId.equals(eventId));
+
+    if (user.registeredEvents.length === initialLength)
+      return res.status(404).json({ error: 'Event not found in user registrations' });
+
+    await user.save();
+    res.json({ message: 'Event unregistered successfully' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to unregister event' });
+  }
+});
+
+// PUT /api/users/:id — update accountState
+router.put('/:id', async (req, res) => {
+  try {
+    const updates = {};
+    if (req.body.role) updates.role = req.body.role;
+    if (req.body.accountState) updates.accountState = req.body.accountState;
+
+    const user = await User.findByIdAndUpdate(req.params.id, updates, { new: true });
+
+
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    res.json(user);
+  } catch (err) {
+    console.error('Error updating user:', err);
+    res.status(500).json({ error: 'Failed to update user' });
+  }
+});
+
+
+
 module.exports = router;
