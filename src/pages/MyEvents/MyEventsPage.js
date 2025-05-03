@@ -1,15 +1,14 @@
 import './MyEventsPage.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 import FilterButtons from '../../components/MyEventsPageComponents/FliterButtons';
-import NavbarComponent from '../../components/MyEventsPageComponents/NavbarComponent';
 import CardsGrid from '../../components/MyEventsPageComponents/CardsGrid';
 import Navbar from '../../components/Navbar';
-import allEv from '../../util/dEvAll.json';
 
 
 
@@ -21,8 +20,13 @@ export default function MyEventsPage() {
   const [userLoading, setUserLoading] = useState(true);
   const [filter, setFilter] = useState("all");
 
-  const currentUserId = "68151b3bd6561d8fe2b9cb51"
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const currentUserId = storedUser?._id;
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!currentUserId) navigate("/login");
+  }, [currentUserId]);
 
   // Fetch events
   useEffect(() => {
@@ -110,7 +114,7 @@ export default function MyEventsPage() {
     {/* Button for Events Selection All, Upcoming, Past */}
           <div className='d-flex justify-content-between align-items-center'>
               <FilterButtons handleChange={handleChange} />
-              <Button className='btn-app' size="lg" href="#link">New Event</Button>
+              <Button className='btn-app' size="lg" href="/create-event">New Event</Button>
           </div>
 
     {/* Events Cards */}

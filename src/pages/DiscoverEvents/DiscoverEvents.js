@@ -3,12 +3,11 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 
 import Container from 'react-bootstrap/Container';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 
 import EventViewModal from '../../components/AdminDashboardComponents/EventViewModal';
 import FilterButtons from '../../components/MyEventsPageComponents/FliterButtons';
 import Navbar from '../../components/Navbar';
-import allEv from '../../util/dEvAll.json';
 import CardsGridDiscover from '../../components/CardsGridDiscover';
 
 
@@ -25,7 +24,14 @@ function DiscoverEvents() {
   const [showViewModal, setShowViewModal] = useState(false); // Controls modal visibility
   const [selectedEvent, setSelectedEvent] = useState(null); // Stores the event to be displayed in the modal
 
-  const currentUserId = "68151b3bd6561d8fe2b9cb51"
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const currentUserId = storedUser?._id;
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!currentUserId) navigate("/login");
+  }, [currentUserId]);
+
   // Backend Fetching //
   // Fetch events
   useEffect(() => {
