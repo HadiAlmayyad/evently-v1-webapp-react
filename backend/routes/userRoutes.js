@@ -99,16 +99,20 @@ router.delete('/:userId/unregister/:eventId', async (req, res) => {
   }
 });
 
-// PUT /api/users/:id — update accountState
+// PUT /api/users/:id — update user profile
 router.put('/:id', async (req, res) => {
   try {
-    const updates = {};
-    if (req.body.role) updates.role = req.body.role;
-    if (req.body.accountState) updates.accountState = req.body.accountState;
+    const updates = {
+      fullName: req.body.fullName,
+      email: req.body.email,
+      stuId: req.body.stuId,
+      major: req.body.major,
+      gender: req.body.gender,
+      role: req.body.role,
+      accountState: req.body.accountState,
+    };
 
     const user = await User.findByIdAndUpdate(req.params.id, updates, { new: true });
-
-
     if (!user) return res.status(404).json({ error: 'User not found' });
 
     res.json(user);
@@ -117,6 +121,7 @@ router.put('/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to update user' });
   }
 });
+
 
 
 

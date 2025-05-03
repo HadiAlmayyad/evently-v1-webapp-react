@@ -18,6 +18,24 @@ function Profile() {
     if (!storedUser) navigate("/login");
   }, [storedUser, navigate]);
 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+  
+    if (!storedUser || !storedUser._id) return navigate("/login");
+  
+    fetch(`http://localhost:5000/api/users/${storedUser._id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then(res => res.json())
+      .then(data => {
+        setUser(data);
+        localStorage.setItem("user", JSON.stringify(data));
+      }
+    )
+      .catch(err => console.error("Failed to fetch user", err));
+  }, []);
+
   function getDefaultImage(role) {
     switch (role) {
       case "Admin": return adminImg;
@@ -51,19 +69,38 @@ function Profile() {
     setEditMode((prev) => !prev);
   };
 
-  const handleSave = () => {
-    const prevEmail = storedUser.email;
-    const updatedUser = { ...user };
+  const handleSave = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      const userId = storedUser._id;
+      const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          fullName: user.fullName,
+          email: user.email,
+          stuId: user.stuId,
+          major: user.major,
+          gender: user.gender,
+        }),
+      });
+  
+      const updated = await res.json();
 
-    if (updatedUser.email !== prevEmail) {
-      localStorage.removeItem(`profile_${prevEmail}`);
+      if (!res.ok) throw new Error(updated.error || "Update failed");
+      localStorage.setItem("user", JSON.stringify(updated));
+      setEditMode(false);
+      alert("Profile updated!");
+    } catch (err) {
+      alert(err.message);
     }
-
-    localStorage.setItem("user", JSON.stringify(updatedUser));
-    localStorage.setItem(`profile_${updatedUser.email}`, JSON.stringify(updatedUser));
-    setEditMode(false);
-    alert("Profile saved!");
   };
+  
+  
 
   return (
     <>
@@ -152,9 +189,9 @@ function Profile() {
               <div className="mb-3">
                 <strong>ID:</strong>{" "}
                 {editMode ? (
-                  <input type="text" name="id" value={user.id} onChange={handleInputChange} className="form-control mt-2" />
+                  <input type="text" name="id" value={user.stuId} onChange={handleInputChange} className="form-control mt-2" />
                 ) : (
-                  user.id
+                  user.stuId
                 )}
               </div>
 

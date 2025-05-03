@@ -3,12 +3,11 @@ const cors = require('cors')
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const authRoutes = require("./routes/authRoutes");
 const eventRoutes = require('./routes/eventRoutes');
 const userRoutes = require('./routes/userRoutes');
 const venueRoutes = require('./routes/venueRoutes');
-const authRoutes = require('./routes/auth');
 const categoryRoutes = require('./routes/categoryRoutes');
-
 
 dotenv.config();
 
@@ -17,10 +16,11 @@ app.use(bodyParser.json());  // Parse JSON bodies
 app.use(cors())
 const PORT = process.env.PORT || 5000;
 
+// Routes
+app.use("/api", authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/venues', venueRoutes);
-app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
 
 

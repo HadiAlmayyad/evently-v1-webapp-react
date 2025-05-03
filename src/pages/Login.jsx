@@ -1,3 +1,4 @@
+// src/pages/Login.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -5,72 +6,59 @@ import FooterEv from "../components/FooterEv";
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [fullName, setFullName] = useState("");
+  const [stuId, setStuId] = useState("")
 
-  const dummyUsers = [
-    {
-      fullName: "Ali Al-Qahtani",
-      email: "ali@example.com",
-      password: "123456",
-      role: "Attendee",
-      id: "202012345",
-      major: "Software Engineering",
-      gender: "Male",
-    },
-    {
-      fullName: "Sarah Organizer",
-      email: "sarah@org.com",
-      password: "123456",
-      role: "Organizer",
-      id: "202045678",
-      major: "Event Management",
-      gender: "Female",
-    },
-    {
-      fullName: "Admin User",
-      email: "admin@admin.com",
-      password: "admin123",
-      role: "Admin",
-      id: "000000001",
-      major: "System Management",
-      gender: "N/A",
-    },
-  ];
+  const navigate = useNavigate();
 
   const toggleForm = () => setIsLogin(!isLogin);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (isLogin) {
-      const matchedUser = dummyUsers.find(
-        (u) => u.email === email && u.password === password
-      );
-
-      if (matchedUser) {
-        const savedProfile = localStorage.getItem(`profile_${matchedUser.email}`);
-        const finalUser = savedProfile ? JSON.parse(savedProfile) : matchedUser;
-
-        localStorage.setItem("user", JSON.stringify(finalUser));
-        navigate("/profile");
-      } else {
-        alert("Invalid email or password");
+    setErrorMsg("");
+  
+    const url = isLogin
+      ? "http://localhost:5000/api/login"
+      : "http://localhost:5000/api/signup";
+  
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(
+          isLogin ? { email, password } : { fullName, email, password, stuId }
+        ),
+      });
+  
+      const data = await res.json();
+  
+      if (!res.ok) throw new Error(data.message || "Authentication failed");
+  
+      // Save token if you are using it later
+      if (data.token) {
+        localStorage.setItem("token", data.token);
       }
-    } else {
-      alert("Signup not implemented. Use Log In instead.");
+
+      // Fetch full user profile using ID (assumes `data.user._id` is returned from backend)
+      const profileRes = await fetch(`http://localhost:5000/api/users/${data.user._id}`);
+      const fullUser = await profileRes.json();
+
+      localStorage.setItem("user", JSON.stringify(fullUser));
+      navigate("/profile");
+    } catch (err) {
+      setErrorMsg(err.message);
     }
   };
-
+  
   return (
     <>
       <Navbar showLogout={false} />
       <div
         className="d-flex justify-content-center align-items-center vh-100 px-3"
-        style={{
-          background: "linear-gradient(to bottom, #4b0082, #000000)",
-        }}
+        style={{ background: "linear-gradient(to bottom, #4b0082, #000000)" }}
       >
         <div
           className="p-5 text-white w-100"
@@ -85,6 +73,29 @@ function Login() {
           <h2 className="text-center mb-4">
             {isLogin ? "Welcome Back!" : "Create Account"}
           </h2>
+
+          {!isLogin && (
+            <div className="form-group mb-3">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Full Name"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
+            </div>
+          )}
+          {!isLogin && (
+            <>
+              <input
+                type="text"
+                className="form-control mb-3"
+                placeholder="Student ID"
+                value={stuId}
+                onChange={(e) => setStuId(e.target.value)}
+              />
+            </>
+          )}
 
           <form onSubmit={handleSubmit}>
             <div className="form-group mb-3">
@@ -143,9 +154,14 @@ function Login() {
               </>
             )}
           </div>
+
+          {errorMsg && (
+            <div className="text-danger text-center mt-2">
+              {errorMsg}
+            </div>
+          )}
         </div>
       </div>
-
       <FooterEv />
     </>
   );
