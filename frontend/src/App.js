@@ -81,15 +81,6 @@ function App() {
           }
         />
 
-        <Route
-          path="/event-manage"
-          element={
-            <ProtectedRoute allowedRoles={["Organiser"]}>
-              <Navigate to="/organiser-dashboard"/>
-            </ProtectedRoute>
-          }
-        />
-
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
 
