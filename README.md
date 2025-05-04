@@ -39,7 +39,7 @@ DB_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/evently
 5. **Install dependencies and start the server (Backend):**
 ```bash
 cd backend
-npm install
+npm install express mongoose bcryptjs body-parser cors dotenv jsonwebtoken nodemon
 node server.js
 ```
 The server will now run at [http://localhost:5000](http://localhost:5000)
