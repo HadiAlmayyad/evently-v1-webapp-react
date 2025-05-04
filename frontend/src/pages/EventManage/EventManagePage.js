@@ -224,7 +224,7 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<Form.Label required>Date & Time</Form.Label>
-							<Form.Control name="datetime" type="datetime-local" min={new Date().toISOString().slice(0,16)} step={300} required/>
+							<Form.Control name="datetime" type="datetime-local" min={`${minimumDate.toISOString().split( "T" )[0]}T00:00`} step={300} required/>
 							<Form.Text>When will the event take place?</Form.Text>
 						</Form.Group>
 					</Row>

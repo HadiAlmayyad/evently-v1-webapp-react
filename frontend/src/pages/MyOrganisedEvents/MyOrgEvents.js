@@ -5,7 +5,6 @@ import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { Button, Modal, Form } from 'react-bootstrap';
 
-import CreateEventModal from '../../components/MyOrgEventsComponents/CreateEventModal';
 import EditEventModal from '../../components/MyOrgEventsComponents/EditEventModal'; 
 import EventViewModal from '../../components/AdminDashboardComponents/EventViewModal';
 import FilterButtons from '../../components/MyEventsPageComponents/FliterButtons';
@@ -23,32 +22,12 @@ export default function MyOrgEvents() {
   const [showViewModal, setShowViewModal] = useState(false); // Controls modal visibility
   const [selectedEvent, setSelectedEvent] = useState(null); // Stores the event to be displayed in the modal
   const [showEditModal, setShowEditModal] = useState(false); // Controls edit modal visibility
-  const [showCreateModal, setShowCreateModal] = useState(false); // Controls create modal visibility
 
   // Handles Toggle Buttons (All, Upcoming, Past)
   const handleChange = (val) => {
     if (val === 1) setFilter('all');
     else if (val === 2) setFilter('upcoming');
     else setFilter('past');
-  };
-
-
-  // Opens the modal to create a new event
-  const handleCreateEvent = () => {
-    setShowCreateModal(true);
-  };
-
-  const handleCloseCreateModal = () => {
-    setShowCreateModal(false);
-  };
-
-  // Save the new event to the state
-  const handleSaveNewEvent = (newEvent) => {
-
-    // Assign a unique ID and initial status (e.g., "pending")
-
-    const eventWithId = { ...newEvent, id: Date.now(), status: 'pending' };
-    setEvents((prevEvents) => [...prevEvents, eventWithId]);
   };
 
   const handleView = (event) => {
@@ -97,7 +76,7 @@ export default function MyOrgEvents() {
     {/* Button for Events Selection All, Upcoming, Past */}
           <div className='d-flex justify-content-between align-items-center'>
               <FilterButtons handleChange={handleChange} />
-              <Button className='btn-app' size="lg" onClick={handleCreateEvent}>New Event</Button>
+              <Button className='btn-app' size="lg" href="/create-event">New Event</Button>
           </div>
 
     {/* Events Cards */}
@@ -128,13 +107,6 @@ export default function MyOrgEvents() {
         />
         )}
 
-            {/* Create Event Modal */}
-      <CreateEventModal
-        show={showCreateModal}
-        onHide={handleCloseCreateModal}
-        onCreate={handleSaveNewEvent} // Save new event
-      />
   </div>
-  
   );
 }
