@@ -24,7 +24,7 @@ function Profile() {
   
     if (!storedUser || !storedUser._id) return navigate("/login");
   
-    fetch(`http://localhost:5000/api/users/${storedUser._id}`, {
+    fetch(`https://evently-webapp-react-api.vercel.app/api/users/${storedUser._id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.json())
@@ -74,7 +74,7 @@ function Profile() {
       const token = localStorage.getItem("token");
       const storedUser = JSON.parse(localStorage.getItem("user"));
       const userId = storedUser._id;
-      const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+      const res = await fetch(`https://evently-webapp-react-api.vercel.app/api/users/${userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

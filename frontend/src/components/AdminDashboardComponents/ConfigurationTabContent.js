@@ -11,7 +11,7 @@ export default function ConfigurationTabContent() {
 
   // Fetich Users
   useEffect(() => {
-    fetch('http://localhost:5000/api/users')
+    fetch('https://evently-webapp-react-api.vercel.app/api/users')
       .then(res => res.json())
       .then(data => {
         setUsers(data);
@@ -40,7 +40,7 @@ export default function ConfigurationTabContent() {
 
     if (!selectedUserId || !selectedUserRole) return;
 
-    fetch(`http://localhost:5000/api/users/${selectedUserId}`, {
+    fetch(`https://evently-webapp-react-api.vercel.app/api/users/${selectedUserId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ role: selectedUserRole }),
@@ -64,7 +64,7 @@ export default function ConfigurationTabContent() {
   // Categories Handlers
     // Load categories from backend
     useEffect(() => {
-        fetch('http://localhost:5000/api/categories')
+        fetch('https://evently-webapp-react-api.vercel.app/api/categories')
             .then(res => res.json())
             .then(data => setCategories(data))
             .catch(err => console.error("Failed to fetch categories", err));
@@ -74,7 +74,7 @@ export default function ConfigurationTabContent() {
     const addCategory = () => {
         if (!newCategory.trim()) return alert("Category title required");
 
-        fetch('http://localhost:5000/api/categories', {
+        fetch('https://evently-webapp-react-api.vercel.app/api/categories', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title: newCategory }),
@@ -99,7 +99,7 @@ export default function ConfigurationTabContent() {
     
     // Cancel editing
     const cancelEditCategory = (id) => {
-        fetch(`http://localhost:5000/api/categories/${id}`)
+        fetch(`https://evently-webapp-react-api.vercel.app/api/categories/${id}`)
         .then(res => res.json())
         .then(fresh => {
             setCategories(prev =>
@@ -121,7 +121,7 @@ export default function ConfigurationTabContent() {
     // Save update
     const saveCategory = (id) => {
         const category = categories.find(cat => cat._id === id);
-        fetch(`http://localhost:5000/api/categories/${id}`, {
+        fetch(`https://evently-webapp-react-api.vercel.app/api/categories/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: category.title }),
@@ -141,7 +141,7 @@ export default function ConfigurationTabContent() {
     const deleteCategory = (id) => {
         if (!window.confirm("Are you sure you want to delete this category?")) return;
 
-        fetch(`http://localhost:5000/api/categories/${id}`, {
+        fetch(`https://evently-webapp-react-api.vercel.app/api/categories/${id}`, {
             method: 'DELETE'
         })
             .then(() => {

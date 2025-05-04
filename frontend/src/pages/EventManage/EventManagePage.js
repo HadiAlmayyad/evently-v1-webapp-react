@@ -12,7 +12,7 @@ function EventManagePage()
 	const [ registrationMethodEnabled, setRegistrationMethodEnabled ] = useState( false );
 	const [ disableSubmit, setDisableSubmit ] = useState( false );
 	// const [ thumbnailURL, setThumbnailURL ] = useState( null );
-	const eventlyAPI = "http://localhost:5000/api";
+	const eventlyAPI = "https://evently-webapp-react-api.vercel.app/api";
 
 /*
 	const openPreview = function()

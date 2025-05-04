@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
 function EditEventModal({ show, onHide, event, onSave }) {
-  const eventlyAPI = "http://localhost:8000/api"
+  const eventlyAPI = "https://evently-webapp-react-api.vercel.app/api"
   const [editedEvent, setEditedEvent] = useState({});
   const [disableSubmit, setDisableSubmit] = useState(false);
   const [venuesFetched, setVenuesFetched] = useState(false);

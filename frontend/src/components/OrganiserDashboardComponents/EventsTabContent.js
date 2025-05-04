@@ -4,7 +4,7 @@ import EditEventModal from './EditEventModal';
 import EventViewModal from './EventViewModal';
 
 export default function EventsTabContent() {
-  const eventlyAPI = "http://localhost:5000/api";
+  const eventlyAPI = "https://evently-webapp-react-api.vercel.app/api";
   const [eventList, setEventList] = useState([]);
   const [showModal, setShowModal] = useState(false); // Controls modal visibility
   const [selectedEvent, setSelectedEvent] = useState(null); // Stores the event to be displayed in the modal

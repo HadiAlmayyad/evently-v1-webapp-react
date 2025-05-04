@@ -21,8 +21,8 @@ function Login() {
     setErrorMsg("");
   
     const url = isLogin
-      ? "http://localhost:5000/api/login"
-      : "http://localhost:5000/api/signup";
+      ? "https://evently-webapp-react-api.vercel.app/api/login"
+      : "https://evently-webapp-react-api.vercel.app/api/signup";
   
     try {
       const res = await fetch(url, {
@@ -43,7 +43,7 @@ function Login() {
       }
 
       // Fetch full user profile using ID (assumes `data.user._id` is returned from backend)
-      const profileRes = await fetch(`http://localhost:5000/api/users/${data.user._id}`);
+      const profileRes = await fetch(`https://evently-webapp-react-api.vercel.app/api/users/${data.user._id}`);
       const fullUser = await profileRes.json();
 
       localStorage.setItem("user", JSON.stringify(fullUser));

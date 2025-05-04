@@ -35,7 +35,7 @@ function DiscoverEvents() {
   // Backend Fetching //
   // Fetch events
   useEffect(() => {
-    fetch("http://localhost:5000/api/events")
+    fetch("https://evently-webapp-react-api.vercel.app/api/events")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
@@ -49,7 +49,7 @@ function DiscoverEvents() {
   
   // Fetch user
   useEffect(() => {
-    fetch(`http://localhost:5000/api/users/${currentUserId}`)
+    fetch(`https://evently-webapp-react-api.vercel.app/api/users/${currentUserId}`)
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
@@ -67,7 +67,7 @@ function DiscoverEvents() {
     const userId = user?._id;
     if (!userId || !event?._id) return alert("User or event missing");
   
-    fetch(`http://localhost:5000/api/users/${userId}/register/${event._id}`, {
+    fetch(`https://evently-webapp-react-api.vercel.app/api/users/${userId}/register/${event._id}`, {
       method: "POST",
     })
       .then((res) => {
@@ -88,7 +88,7 @@ function DiscoverEvents() {
           ]
         }));
   
-        return fetch(`http://localhost:5000/api/users/${userId}`);
+        return fetch(`https://evently-webapp-react-api.vercel.app/api/users/${userId}`);
       })
       .then((res) => res.json())
       .then((updatedUser) => {

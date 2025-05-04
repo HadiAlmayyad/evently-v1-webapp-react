@@ -8,7 +8,7 @@ function VenuesPage() {
 
   const [venues, setVenues] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/api/venues")
+    fetch("https://evently-webapp-react-api.vercel.app/api/venues")
       .then(res => res.json())
       .then(data => setVenues(data))
       .catch(err => console.error("Failed to fetch venues:", err));
@@ -47,8 +47,8 @@ function VenuesPage() {
   const handleSave = () => {
     const method = selectedVenue ? "PUT" : "POST";
     const url = selectedVenue
-      ? `http://localhost:5000/api/venues/${selectedVenue._id}`
-      : "http://localhost:5000/api/venues";
+      ? `https://evently-webapp-react-api.vercel.app/api/venues/${selectedVenue._id}`
+      : "https://evently-webapp-react-api.vercel.app/api/venues";
   
     fetch(url, {
       method,
@@ -77,7 +77,7 @@ function VenuesPage() {
   const handleDelete = (id) => {
     if (!window.confirm("Delete this venue?")) return;
   
-    fetch(`http://localhost:5000/api/venues/${id}`, {
+    fetch(`https://evently-webapp-react-api.vercel.app/api/venues/${id}`, {
       method: "DELETE",
     })
       .then(res => res.json())

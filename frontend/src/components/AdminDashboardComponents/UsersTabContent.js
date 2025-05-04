@@ -11,14 +11,14 @@ export default function UsersTabContent() {
 
   // Fetch users on mount
   useEffect(() => {
-    fetch('http://localhost:5000/api/users')
+    fetch('https://evently-webapp-react-api.vercel.app/api/users')
       .then(res => res.json())
       .then(data => setUserList(data))
       .catch(err => console.error('Error fetching users:', err));
   }, []);
 
   const handleView = (user) => {
-    fetch(`http://localhost:5000/api/users/${user._id}`)
+    fetch(`https://evently-webapp-react-api.vercel.app/api/users/${user._id}`)
       .then(res => res.json())
       .then(fullUser => setSelectedUser(fullUser))
       .catch(err => console.error('Error fetching user details:', err));
@@ -36,7 +36,7 @@ export default function UsersTabContent() {
 
       setLoadingUserId(userId); // start spinner
 
-    fetch(`http://localhost:5000/api/users/${userId}`, {
+    fetch(`https://evently-webapp-react-api.vercel.app/api/users/${userId}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ accountState: newState }),

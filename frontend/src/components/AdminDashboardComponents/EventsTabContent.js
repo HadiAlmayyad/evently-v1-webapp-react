@@ -9,7 +9,7 @@ export default function EventsTabContent() {
   const [loadingId, setLoadingId] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/events')
+    fetch('https://evently-webapp-react-api.vercel.app/api/events')
       .then(res => res.json())
       .then(data => setEventList(data))
       .catch(err => console.error('Error fetching events:', err));
@@ -17,7 +17,7 @@ export default function EventsTabContent() {
 
   const handleApprove = (id) => {
     setLoadingId(id); // start loading
-    fetch(`http://localhost:5000/api/events/${id}`, {
+    fetch(`https://evently-webapp-react-api.vercel.app/api/events/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminStatus: 'approved' }),
@@ -37,7 +37,7 @@ export default function EventsTabContent() {
 
   const handleReject = (id) => {
     setLoadingId(id); // start loading
-    fetch(`http://localhost:5000/api/events/${id}`, {
+    fetch(`https://evently-webapp-react-api.vercel.app/api/events/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ adminStatus: 'rejected' }),
@@ -55,7 +55,7 @@ export default function EventsTabContent() {
   };
 
   const handleRemove = (id) => {
-    fetch(`http://localhost:5000/api/events/${id}`, {
+    fetch(`https://evently-webapp-react-api.vercel.app/api/events/${id}`, {
       method: 'DELETE'
     })
       .then(res => {
