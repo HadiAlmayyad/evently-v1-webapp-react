@@ -6,7 +6,7 @@ KFUPM hosts a wide variety of events throughout the year, offering valuable oppo
 - Last-minute notifications offer little preparation time.
 - No centralized platform exists to track past and upcoming events.
 
-To address these issues, we developed **Evently** – a web-based platform that streamlines event organization and participation. It enables organizers to create, edit, and customize events, while attendees can browse, register, and receive real-time updates. Filtering by category, location, or date enhances discoverability and engagement.
+To address these issues, we developed **Evently** – a web-based platform that streamlines event organisation and participation. It enables organisers to create, edit, and customize events, while attendees can browse, register, and receive real-time updates. Filtering by category, location, or date enhances discoverability and engagement.
 
 ---
 
@@ -50,7 +50,7 @@ The server will now run at [http://localhost:5000](http://localhost:5000)
 
 The app supports 3 user roles:
 - **Admin**
-- **Organizer**
+- **Organiser**
 - **Attendee**
 
 > Use the frontend to sign up with 3 users. All start as "Attendee" by default.
@@ -62,7 +62,7 @@ PUT /api/users/:id
 **Body Example:**
 ```json
 {
-  "role": "Organizer"
+  "role": "Organiser"
 }
 ```
 

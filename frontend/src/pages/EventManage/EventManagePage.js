@@ -149,7 +149,7 @@ function EventManagePage()
 				if ( response.ok )
 				{
 					alert( "Event submitted sucessfully!" );
-					navigate("/organizer-dashboard")
+					navigate("/organiser-dashboard")
 				}
 				else
 				{
@@ -246,7 +246,7 @@ function EventManagePage()
 					</Row>
 					<br/>
 					<Row>
-						<Col><Button variant="secondary" href="/organizer-dashboard">Cancel</Button> {/* <Button onClick={openPreview} variant="outline-light">Preview</Button> <Button variant="outline-info">Draft</Button> */} <Button variant="primary" type="submit" disabled={disableSubmit}>Submit</Button></Col>
+						<Col><Button variant="secondary" href="/organiser-dashboard">Cancel</Button> {/* <Button onClick={openPreview} variant="outline-light">Preview</Button> <Button variant="outline-info">Draft</Button> */} <Button variant="primary" type="submit" disabled={disableSubmit}>Submit</Button></Col>
 					</Row>
 				</Form>
 				{/* <Modal show={showPreview} size="xl" onHide={closePreview}>

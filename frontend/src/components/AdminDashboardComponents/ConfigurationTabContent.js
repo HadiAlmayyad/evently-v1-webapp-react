@@ -193,7 +193,7 @@ export default function ConfigurationTabContent() {
                 <Col sm={8}>
                 <Form.Select value={selectedUserRole} onChange={handleRoleChange} className="custom-form-select">
                     <option value="Atendee">Atendee</option>
-                    <option value="Organizer">Organizer</option>
+                    <option value="Organiser">Organiser</option>
                     <option value="Admin">Admin</option>
                 </Form.Select>
                 </Col>

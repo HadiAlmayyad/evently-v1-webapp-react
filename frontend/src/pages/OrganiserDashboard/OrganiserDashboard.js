@@ -1,13 +1,13 @@
 import React from "react"
-import './OrganizerDashboard.css';
+import './OrganiserDashboard.css';
 import { Container, Tabs, Tab } from "react-bootstrap";
-import EventsTabContent from "../../components/OrganizerDashboardComponents/EventsTabContent";
-import ConfiguratoinTabContent from "../../components/OrganizerDashboardComponents/ConfigurationTabContent";
+import EventsTabContent from "../../components/OrganiserDashboardComponents/EventsTabContent";
+import ConfiguratoinTabContent from "../../components/OrganiserDashboardComponents/ConfigurationTabContent";
 import Navbar from "../../components/Navbar";
 import FooterEv from "../../components/FooterEv";
 
 
-function OrganizerDashboard() { 
+function OrganiserDashboard() { 
 
     return (
 
@@ -39,4 +39,4 @@ function OrganizerDashboard() {
     )
 }
 
-export default OrganizerDashboard;
+export default OrganiserDashboard;

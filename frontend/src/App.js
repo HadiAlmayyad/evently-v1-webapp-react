@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/Profile";  
 import LandingPage from "./pages/LandingPage";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
-import OrganizerDashboard from "./pages/OrganizerDashboard/OrganizerDashboard";
+import OrganiserDashboard from "./pages/OrganiserDashboard/OrganiserDashboard";
 import './styles/ev-theme.css'
 import VenuesPage from "./pages/Venues/VenuesPage";
 import DiscoverEvents from './pages/DiscoverEvents/DiscoverEvents';
@@ -21,7 +21,7 @@ function App() {
         <Route
           path="/profile"
           element={
-            <ProtectedRoute allowedRoles={["Attendee", "Organizer", "Admin"]}>
+            <ProtectedRoute allowedRoles={["Attendee", "Organiser", "Admin"]}>
               <Profile />
             </ProtectedRoute>
           }
@@ -30,7 +30,7 @@ function App() {
         <Route
           path="/my-events"
           element={
-            <ProtectedRoute allowedRoles={["Attendee", "Organizer"]}>
+            <ProtectedRoute allowedRoles={["Attendee", "Organiser"]}>
               <MyEventsPage />
             </ProtectedRoute>
           }
@@ -57,17 +57,17 @@ function App() {
         <Route
           path="/discover"
           element={
-            <ProtectedRoute allowedRoles={["Attendee", "Organizer", "Admin"]}>
+            <ProtectedRoute allowedRoles={["Attendee", "Organiser", "Admin"]}>
               <DiscoverEvents />
             </ProtectedRoute>
           }
         />
 
         <Route
-          path="/organizer-dashboard"
+          path="/organiser-dashboard"
           element={
-            <ProtectedRoute allowedRoles={["Organizer"]}>
-              <OrganizerDashboard />
+            <ProtectedRoute allowedRoles={["Organiser"]}>
+              <OrganiserDashboard />
             </ProtectedRoute>
           }
         />
@@ -75,7 +75,7 @@ function App() {
         <Route
           path="/create-event"
           element={
-            <ProtectedRoute allowedRoles={["Organizer"]}>
+            <ProtectedRoute allowedRoles={["Organiser"]}>
               <EventManagePage/>
             </ProtectedRoute>
           }
@@ -84,8 +84,8 @@ function App() {
         <Route
           path="/event-manage"
           element={
-            <ProtectedRoute allowedRoles={["Organizer"]}>
-              <Navigate to="/organizer-dashboard"/>
+            <ProtectedRoute allowedRoles={["Organiser"]}>
+              <Navigate to="/organiser-dashboard"/>
             </ProtectedRoute>
           }
         />

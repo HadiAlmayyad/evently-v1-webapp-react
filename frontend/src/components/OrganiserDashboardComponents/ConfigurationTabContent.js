@@ -10,7 +10,7 @@ export default function ConfigurationTabContent() {
 
   return (
     <Container>
-        <Tabs defaultActiveKey="reports" id="organizer-settings-tabs" className="mb-3 ev-tabs">
+        <Tabs defaultActiveKey="reports" id="organiser-settings-tabs" className="mb-3 ev-tabs">
                 {/* Reports Section */}
         <Tab eventKey="reports" title="Reports">
             <Form className="mt-4">

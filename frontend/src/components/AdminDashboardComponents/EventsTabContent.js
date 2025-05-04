@@ -84,7 +84,7 @@ export default function EventsTabContent() {
               <Card.Body>
                 <Card.Title>{event.title}</Card.Title>
                 <Card.Text>
-                  <strong>Organizer:</strong> {event.organiser}
+                  <strong>Organiser:</strong> {event.organiser}
                 </Card.Text>
                 <Card.Text>
                   <strong>Venue:</strong> {event.venue}
