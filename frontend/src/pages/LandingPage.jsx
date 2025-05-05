@@ -139,7 +139,7 @@ function LandingPage() {
               Eventually you will use <span style={{ color: "#A259FF" }}>Evently</span>!
             </h1>
             <p className="lead text-white-50 mb-4">
-              A smart and simple platform for KFUPM students to discover, manage and organize campus events.
+              A smart and simple platform for KFUPM students to discover, manage and organise campus events.
             </p>
             <a
               href="#features"
@@ -193,7 +193,7 @@ function LandingPage() {
               <h4 className="fw-bold mb-3">See All Campus Events</h4>
               <p className="text-white-50">
                 You can see the events in KFUPM and explore what’s happening across campus.
-                Filter by category, time, or organizer and stay updated.
+                Filter by category, time, or organiser and stay updated.
               </p>
             </div>
           </div>
@@ -213,7 +213,7 @@ function LandingPage() {
             <div className="col-md-6 text-white pe-md-5 mt-4 mt-md-0">
               <h4 className="fw-bold mb-3">Rate Events After Attending</h4>
               <p className="text-white-50">
-                You can rate events after attending them and share your feedback with organizers
+                You can rate events after attending them and share your feedback with organisers
                 to help improve future experiences.
               </p>
             </div>
@@ -240,6 +240,15 @@ function LandingPage() {
               rel="noopener noreferrer"
               className="footer-icon"
               title="GitHub - software1337x"
+            >
+              <i className="fab fa-github"></i>
+            </a>
+            <a
+              href="https://github.com/HadiAlmayyad"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-icon"
+              title="GitHub - Hadi"
             >
               <i className="fab fa-github"></i>
             </a>

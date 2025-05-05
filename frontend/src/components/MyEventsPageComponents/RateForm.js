@@ -69,7 +69,7 @@ function RateForm({ show, onHide, event, user }) {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/users/${userId}/feedback/${event._id}`,
+        `https://evently-webapp-react-api.vercel.app/api/users/${userId}/feedback/${event._id}`,
         {
           method: "PUT",
           headers: {

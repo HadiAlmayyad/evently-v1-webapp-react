@@ -30,7 +30,7 @@ export default function MyEventsPage() {
 
   // Fetch events
   useEffect(() => {
-    fetch("http://localhost:5000/api/events")
+    fetch("https://evently-webapp-react-api.vercel.app/api/events")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
@@ -44,7 +44,7 @@ export default function MyEventsPage() {
 
   // Fetch user
   useEffect(() => {
-    fetch(`http://localhost:5000/api/users/${currentUserId}`)
+    fetch(`https://evently-webapp-react-api.vercel.app/api/users/${currentUserId}`)
       .then((res) => res.json())
       .then((data) => {
         setUser(data);
@@ -65,7 +65,7 @@ export default function MyEventsPage() {
 
   // Used by CardsGrid to delete/cancel Events
   const handleDelete = (eventId) => {
-    fetch(`http://localhost:5000/api/users/${currentUserId}/unregister/${eventId}`, {
+    fetch(`https://evently-webapp-react-api.vercel.app/api/users/${currentUserId}/unregister/${eventId}`, {
       method: 'DELETE',
     })
       .then(response => {

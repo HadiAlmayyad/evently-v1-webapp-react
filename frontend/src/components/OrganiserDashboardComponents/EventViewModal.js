@@ -33,9 +33,7 @@ function EventViewModal({ show, onHide, event }) {
 
         <Row className="mb-3">
           <Col xs={6}><strong>Date & Time:</strong></Col>
-          <Col xs={6}>
-            {new Date(event.date).toISOString().split('T')[0]} | {new Date(event.date).toTimeString().split(' ')[0].slice(0, 5)} 
-          </Col>
+          <Col xs={6}>{( new Date( event.date ) ).toString()}</Col>
         </Row>
 
         <Row className="mb-3">

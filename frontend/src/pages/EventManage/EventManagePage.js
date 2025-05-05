@@ -12,7 +12,7 @@ function EventManagePage()
 	const [ registrationMethodEnabled, setRegistrationMethodEnabled ] = useState( false );
 	const [ disableSubmit, setDisableSubmit ] = useState( false );
 	// const [ thumbnailURL, setThumbnailURL ] = useState( null );
-	const eventlyAPI = "http://localhost:5000/api";
+	const eventlyAPI = "https://evently-webapp-react-api.vercel.app/api";
 
 /*
 	const openPreview = function()
@@ -149,7 +149,7 @@ function EventManagePage()
 				if ( response.ok )
 				{
 					alert( "Event submitted sucessfully!" );
-					navigate("/organizer-dashboard")
+					navigate("/organiser-dashboard")
 				}
 				else
 				{
@@ -224,7 +224,7 @@ function EventManagePage()
 					<Row>
 						<Form.Group>
 							<Form.Label required>Date & Time</Form.Label>
-							<Form.Control name="datetime" type="datetime-local" min={new Date().toISOString().slice(0,16)} step={300} required/>
+							<Form.Control name="datetime" type="datetime-local" min={`${minimumDate.toISOString().split( "T" )[0]}T00:00`} step={300} required/>
 							<Form.Text>When will the event take place?</Form.Text>
 						</Form.Group>
 					</Row>
@@ -246,7 +246,7 @@ function EventManagePage()
 					</Row>
 					<br/>
 					<Row>
-						<Col><Button variant="secondary" href="/organizer-dashboard">Cancel</Button> {/* <Button onClick={openPreview} variant="outline-light">Preview</Button> <Button variant="outline-info">Draft</Button> */} <Button variant="primary" type="submit" disabled={disableSubmit}>Submit</Button></Col>
+						<Col><Button variant="secondary" href="/organiser-dashboard">Cancel</Button> {/* <Button onClick={openPreview} variant="outline-light">Preview</Button> <Button variant="outline-info">Draft</Button> */} <Button variant="primary" type="submit" disabled={disableSubmit}>Submit</Button></Col>
 					</Row>
 				</Form>
 				{/* <Modal show={showPreview} size="xl" onHide={closePreview}>
